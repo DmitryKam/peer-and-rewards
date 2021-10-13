@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 
 import { Employee } from './components/Employee/Employee';
-import { FeelAndRewards } from './components/FeelAndRewards/FeelAndRewards';
+import { FeelAndRewardsContainer } from './components/FeelAndRewards/FeelAndRewardsContainer';
 import { HeaderBar } from './components/HeaderBar/HeaderBar';
 import { Layout } from './components/Layout/Layout';
 import { AppState } from './store/AppState';
@@ -20,7 +20,7 @@ export const App: React.FC = () => {
         <HeaderBar />
         <Layout>
           <Employee />
-          <FeelAndRewards />
+          <FeelAndRewardsContainer />
         </Layout>
       </AppState>
     </div>

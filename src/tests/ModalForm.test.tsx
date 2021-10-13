@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { render, waitFor, screen, fireEvent } from '@testing-library/react';
+import { render, waitFor } from '@testing-library/react';
 
 import '@testing-library/jest-dom/extend-expect';
 
@@ -18,6 +18,7 @@ test('Modal form renders', async () => {
       autocompleteData={autocompleteData}
       handleClose={handleClose}
       open
+      amount={10}
     />,
   );
   //TODO: I have problem with autocomplete

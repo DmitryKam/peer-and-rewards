@@ -16,7 +16,6 @@ export const useStylesFellAndRewards = makeStyles({
   },
   itemContainer: {
     borderRadius: 20,
-    height: 500,
     backgroundColor: '#f2f2f2',
   },
   tabsContainer: { marginLeft: 120 },
@@ -25,6 +24,7 @@ export const useStylesFellAndRewards = makeStyles({
 export const useStylesTabPanel = makeStyles({
   root: {
     padding: '10px 40px 30px 30px',
+    height: 400,
   },
 });
 

@@ -2,7 +2,7 @@ import React from 'react';
 
 import Typography from '@mui/material/Typography';
 
-import { useStylesTabPanel } from '../../../styles/styles';
+import { useStylesTabPanel } from '../../styles/styles';
 
 type TabPanelPropsType = {
   value: number;

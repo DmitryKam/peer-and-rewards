@@ -13,6 +13,7 @@ export const ErrorSnackBar: React.FC<HandleClosePropsType> = ({ handleClose }) =
   const { state } = useContext(AppContext);
   return (
     <Snackbar
+      data-testid={'snack-bar'}
       open={!!state.errors}
       autoHideDuration={6000}
       onClose={handleClose}
