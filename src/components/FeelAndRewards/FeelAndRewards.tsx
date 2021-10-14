@@ -44,7 +44,6 @@ export const FeelAndRewards: React.FC<FeelAndRewardsPropsType> = React.memo(
   }) => {
     const theme = useTheme();
     const classes = useStylesFellAndRewards();
-
     return (
       <div className={classes.root}>
         <div className={classes.iconContainer}>

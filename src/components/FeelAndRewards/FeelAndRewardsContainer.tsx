@@ -5,8 +5,7 @@ import { FeelAndRewards } from './FeelAndRewards';
 
 export const FeelAndRewardsContainer = () => {
   const [value, setValue] = useState<number>(0);
-  const [open, setOpen] = React.useState<boolean>(false);
-
+  const [open, setOpen] = useState<boolean>(false);
   const { state, addRewardToEmployee, myRewards, autocompleteData, currentEmployee } =
     useContext(AppContext);
 

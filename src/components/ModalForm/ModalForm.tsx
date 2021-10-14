@@ -135,7 +135,7 @@ export const ModalForm: React.FC<ModalFormPropsType> = React.memo(
                 <ErrorItem>{formik.errors.why}</ErrorItem>
               )}
               <div className={classes.buttonContainer}>
-                <Button data-testid={'submit'} variant="contained" disableElevation type={'submit'}>
+                <Button variant="contained" disableElevation type={'submit'}>
                   Reward
                 </Button>
               </div>
