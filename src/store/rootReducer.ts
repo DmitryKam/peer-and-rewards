@@ -9,7 +9,7 @@ export const rootReducer = (
     case 'ADD_REWARDS': {
       return {
         ...state,
-        employee: [...action.payload.employee],
+        employees: [...action.payload.employee],
         rewardsData: [
           {
             from: action.payload.from,
@@ -31,6 +31,38 @@ export const rootReducer = (
       return {
         ...state,
         errors: null,
+      };
+    }
+    case 'LOGIN': {
+      return {
+        ...state,
+        auth: { isAuth: true },
+      };
+    }
+    case 'LOGOUT': {
+      return {
+        ...state,
+        auth: {
+          isAuth: false,
+        },
+      };
+    }
+    case 'SET_USER': {
+      return {
+        ...state,
+        user: {
+          email: action.payload.email,
+          name: action.payload.name,
+          imageUrl: action.payload.imageUrl,
+          myRewards: 250,
+          give: 0,
+        },
+      };
+    }
+    case 'DELETE_USER': {
+      return {
+        ...state,
+        user: null,
       };
     }
   }

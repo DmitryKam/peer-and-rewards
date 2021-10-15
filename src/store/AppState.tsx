@@ -1,7 +1,9 @@
-import React, { useReducer } from 'react';
+import React, { useCallback, useReducer } from 'react';
+
+import { GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
 
 import { ErrorSnackBar } from '../components/ErrorSnackBar/ErrorSnackBar';
-import { addReward, resetError, setError } from './actions';
+import { addReward, logIn, logOut, resetError, setError, setUser } from './actions';
 import { AppContext } from './appContext';
 import { rootReducer } from './rootReducer';
 import { initialState } from './state';
@@ -10,61 +12,92 @@ import { EmployeeType } from './types';
 export const AppState: React.FC = ({ children }) => {
   const [state, dispatch] = useReducer(rootReducer, initialState);
   const currentName = 'James William';
-  const currentEmployee = state.employee.find((employee) => employee.name === currentName);
+  const currentEmployee = state.employees.find((employee) => employee.name === currentName);
   const myRewards = state.rewardsData.filter((rewardItem) => rewardItem.from === currentName);
   const autocompleteData: Array<string> = [];
-  state.employee.map((e) => {
+  state.employees.map((e) => {
     if (e.name === currentName) {
       return;
     }
     return autocompleteData.push(e.name);
   });
 
-  const addRewardToEmployee = (to: string, amount: number, why: string): void => {
-    dispatch(resetError());
-    const fromEmployee = state.employee.find((e) => e.name === currentName);
-    const toEmployee = state.employee.find((e) => e.name === to);
-    const newEmployeeState: Array<EmployeeType> = [];
-    state.employee.filter((el) => {
-      if (el.name === currentName) {
-        return;
-      }
-      if (el.name === to) {
-        return;
-      }
-      newEmployeeState.push(el);
-    });
+  const addRewardToEmployee = useCallback(
+    (to: string, amount: number, why: string): void => {
+      dispatch(resetError());
+      const fromEmployee = state.employees.find((e) => e.name === currentName);
+      const toEmployee = state.employees.find((e) => e.name === to);
+      const newEmployeeState: Array<EmployeeType> = [];
+      state.employees.filter((el) => {
+        if (el.name === currentName) {
+          return;
+        }
+        if (el.name === to) {
+          return;
+        }
+        newEmployeeState.push(el);
+      });
 
-    if (fromEmployee && toEmployee && newEmployeeState) {
-      if (fromEmployee.myReward < amount) {
-        return dispatch(setError('You have exceeded your balance'));
+      if (fromEmployee && toEmployee && newEmployeeState) {
+        if (fromEmployee.myReward < amount) {
+          return dispatch(setError('You have exceeded your balance'));
+        }
+        fromEmployee.myReward = fromEmployee.myReward - amount;
+        fromEmployee.give = fromEmployee.give + amount;
+        toEmployee.myReward = toEmployee.myReward + amount;
+
+        const EmployeeArray = [...newEmployeeState, fromEmployee, toEmployee];
+        return dispatch(addReward(EmployeeArray, currentName, to, why));
       }
-      fromEmployee.myReward = fromEmployee.myReward - amount;
-      fromEmployee.give = fromEmployee.give + amount;
-      toEmployee.myReward = toEmployee.myReward + amount;
+    },
+    [state.employees, dispatch],
+  );
 
-      const EmployeeArray = [...newEmployeeState, fromEmployee, toEmployee];
-      return dispatch(addReward(EmployeeArray, currentName, to, why));
-    }
-  };
-
-  const handleClose = (event?: React.SyntheticEvent, reason?: string) => {
+  const closeError = (event?: React.SyntheticEvent, reason?: string) => {
     if (reason === 'clickaway') {
       return;
     }
     dispatch(resetError());
   };
 
+  const successLogin = useCallback(
+    (res: GoogleLoginResponse | GoogleLoginResponseOffline) => {
+      console.log('user', res);
+      if ('profileObj' in res) {
+        dispatch(setUser(res.profileObj.name, res.profileObj.email, res.profileObj.imageUrl));
+      }
+      dispatch(logIn());
+    },
+    [dispatch],
+  );
+
+  const successLogout = () => {
+    dispatch(logOut());
+  };
+
+  const onFailLogin = (res: { details: string; error: string }) => {
+    dispatch(setError(res.details));
+  };
+
   if (!currentEmployee) {
     return <div>Something went wrong</div>;
   }
-
+  console.log('appState');
   return (
     <AppContext.Provider
-      value={{ state, addRewardToEmployee, currentEmployee, myRewards, autocompleteData }}
+      value={{
+        state,
+        addRewardToEmployee,
+        currentEmployee,
+        myRewards,
+        autocompleteData,
+        successLogin,
+        onFailLogin,
+        successLogout,
+      }}
     >
       {children}
-      <ErrorSnackBar handleClose={handleClose} />
+      <ErrorSnackBar handleClose={closeError} />
     </AppContext.Provider>
   );
 };

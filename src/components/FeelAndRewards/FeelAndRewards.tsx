@@ -78,7 +78,7 @@ export const FeelAndRewards: React.FC<FeelAndRewardsPropsType> = React.memo(
         >
           <TabPanel value={value} index={value}>
             {state.rewardsData.map((data, index) => {
-              return <FeedItem key={data.from + index} employees={state.employee} {...data} />;
+              return <FeedItem key={data.from + index} employees={state.employees} {...data} />;
             })}
           </TabPanel>
           <TabPanel value={value} index={value}>
@@ -90,7 +90,7 @@ export const FeelAndRewards: React.FC<FeelAndRewardsPropsType> = React.memo(
                   to={data.to}
                   why={data.why}
                   date={data.date}
-                  employees={state.employee}
+                  employees={state.employees}
                 />
               );
             })}

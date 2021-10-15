@@ -15,7 +15,7 @@ test('ErrorSnackBar should render with error', () => {
   };
   const handleClose = jest.fn();
   const addRewardToEmployee = jest.fn();
-  const currentEmployee = fakeState.employee[0];
+  const currentEmployee = fakeState.employees[0];
   const myRewards = fakeState.rewardsData;
   const autocompleteData = ['1', '2'];
 

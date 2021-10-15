@@ -43,15 +43,15 @@ describe('reducer tests', () => {
   it('Add reward should be added', () => {
     const action = addReward(employees, 'James William', 'John Chen', 'Thanks for your help');
     const endState = rootReducer(initialState, action);
-    expect(initialState.employee[0].name).toBe('James William');
-    expect(initialState.employee[0].myReward).toBe(250);
-    expect(initialState.employee[2].name).toBe('John Chen');
-    expect(initialState.employee[2].myReward).toBe(200);
-    expect(endState.employee[0].name).toBe('James William');
-    expect(endState.employee[0].myReward).toBe(150);
-    expect(endState.employee[0].give).toBe(200);
-    expect(endState.employee[1].name).toBe('John Chen');
-    expect(endState.employee[1].myReward).toBe(300);
+    expect(initialState.employees[0].name).toBe('James William');
+    expect(initialState.employees[0].myReward).toBe(250);
+    expect(initialState.employees[2].name).toBe('John Chen');
+    expect(initialState.employees[2].myReward).toBe(200);
+    expect(endState.employees[0].name).toBe('James William');
+    expect(endState.employees[0].myReward).toBe(150);
+    expect(endState.employees[0].give).toBe(200);
+    expect(endState.employees[1].name).toBe('John Chen');
+    expect(endState.employees[1].myReward).toBe(300);
     expect(initialState.rewardsData.length).toBe(3);
     expect(endState.rewardsData.length).toBe(4);
   });

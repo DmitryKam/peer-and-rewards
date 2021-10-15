@@ -16,7 +16,7 @@ export const useStylesFellAndRewards = makeStyles({
   },
   itemContainer: {
     borderRadius: 20,
-    backgroundColor: '#f2f2f2',
+    backgroundColor: '#f5f5f5',
   },
   tabsContainer: { marginLeft: 120 },
 });
@@ -87,7 +87,16 @@ export const useStylesLayout = makeStyles({
 
 export const useStylesHeaderBar = makeStyles({
   appBarContainer: { display: 'flex', alignItems: 'center' },
-  appBarText: { color: '#fff' },
+  appBarText: {
+    color: '#000a34',
+    flexGrow: 1,
+    textAlign: 'justify',
+    fontWeight: 'bold',
+    fontSize: 26,
+    letterSpacing: 0.3,
+    fontFamily: 'Circular Std,sans-serif',
+    marginLeft: 20,
+  },
 });
 
 export const useStylesModalForm = makeStyles({
@@ -98,6 +107,29 @@ export const useStylesModalForm = makeStyles({
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+});
+
+export const useStylesLogin = makeStyles({
+  root: {
+    height: '100vh',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  paper: {
+    display: 'flex',
+    height: 400,
+    maxWidth: 500,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    padding: '50px 50px 50px 50px',
+  },
+  text: {
+    marginBottom: 40,
+    fontFamily: 'Circular Std,sans-serif',
+    fontSize: 20,
+    textAlign: 'center',
   },
 });
 
@@ -113,4 +145,4 @@ export const boxStyle = {
 } as never;
 
 export const fabStyle = { backgroundColor: '#f8f8f8', border: '2px solid #696969' };
-export const appBarColor = { backgroundColor: '#461818' };
+export const appBarColor = { backgroundColor: '#f5f5f5' };

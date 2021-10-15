@@ -23,3 +23,24 @@ export const resetError = () =>
   ({
     type: 'RESET_ERROR',
   } as const);
+
+export const logIn = () =>
+  ({
+    type: 'LOGIN',
+  } as const);
+
+export const logOut = () =>
+  ({
+    type: 'LOGOUT',
+  } as const);
+
+export const setUser = (name: string, email: string, imageUrl: string) =>
+  ({
+    type: 'SET_USER',
+    payload: { name, email, imageUrl },
+  } as const);
+
+export const deleteUser = () =>
+  ({
+    type: 'DELETE_USER',
+  } as const);

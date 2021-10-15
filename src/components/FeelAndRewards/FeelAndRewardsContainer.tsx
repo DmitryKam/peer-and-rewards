@@ -8,7 +8,6 @@ export const FeelAndRewardsContainer = () => {
   const [open, setOpen] = useState<boolean>(false);
   const { state, addRewardToEmployee, myRewards, autocompleteData, currentEmployee } =
     useContext(AppContext);
-
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 

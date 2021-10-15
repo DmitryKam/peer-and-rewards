@@ -20,7 +20,9 @@
 
 #
 .idea
-./yarn.lock
+.yarn.lock
+.env
+.gitignore
 
 npm-debug.log*
 yarn-debug.log*

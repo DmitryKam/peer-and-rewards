@@ -4,10 +4,15 @@ import { Avatar } from '@mui/material';
 
 import { AppContext } from '../../store/appContext';
 import { useStylesEmployee } from '../../styles/styles';
+import { Login } from '../Login/Login';
 
 export const Employee: React.FC = () => {
   const classes = useStylesEmployee();
-  const { currentEmployee } = useContext(AppContext);
+  const { currentEmployee, state } = useContext(AppContext);
+
+  if (!state.user) {
+    return <Login />;
+  }
 
   return (
     <div className={classes.employeeContainer}>
@@ -15,22 +20,22 @@ export const Employee: React.FC = () => {
         <Avatar
           className={classes.avatar}
           alt={currentEmployee.name}
-          sx={{ width: 76, height: 76 }}
-          src={currentEmployee.avatar}
+          sx={{ width: 86, height: 86 }}
+          src={state.user.imageUrl}
         />
-        <div data-testid={'employeeName'}>{currentEmployee.name}</div>
+        <div data-testid={'employeeName'}>{state.user.name}</div>
       </div>
       <div className={classes.infoContainer}>
         <div className={classes.rewardsContainer}>
           <div style={{ marginBottom: 10 }}>My Rewards</div>
           <div data-testid={'myReward'} className={classes.moneyFontSize}>
-            ${currentEmployee.myReward}
+            ${state.user.myRewards}
           </div>
         </div>
         <div className={classes.cashContainer}>
           <div style={{ marginBottom: 10 }}>Give</div>
           <div data-testid={'give'} className={classes.moneyFontSize}>
-            ${currentEmployee.give}
+            ${state.user.give}
           </div>
         </div>
       </div>

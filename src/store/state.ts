@@ -1,7 +1,10 @@
 import { InitialStateType } from './types';
 
 export const initialState: InitialStateType = {
-  employee: [
+  auth: {
+    isAuth: false,
+  },
+  employees: [
     {
       name: 'James William',
       myReward: 250,
@@ -58,5 +61,6 @@ export const initialState: InitialStateType = {
       date: new Date(2021, 1, 14),
     },
   ],
+  user: null,
   errors: null,
 };
