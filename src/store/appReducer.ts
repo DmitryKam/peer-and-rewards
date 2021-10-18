@@ -1,10 +1,10 @@
-import { initialState } from './state';
-import { ActionTypes, InitialStateType } from './types';
+import { appInitialState } from './state';
+import { AppActionTypes, AppInitialStateType } from './types';
 
-export const rootReducer = (
-  state: InitialStateType = initialState,
-  action: ActionTypes,
-): InitialStateType => {
+export const appReducer = (
+  state: AppInitialStateType = appInitialState,
+  action: AppActionTypes,
+): AppInitialStateType => {
   switch (action.type) {
     case 'ADD_REWARDS': {
       return {
@@ -33,39 +33,21 @@ export const rootReducer = (
         errors: null,
       };
     }
-    case 'LOGIN': {
+    case 'ADD_EMPLOYEE': {
       return {
         ...state,
-        auth: { isAuth: true },
+        employees: [
+          ...state.employees,
+          { name: action.payload.name, myReward: 250, give: 0, avatar: action.payload.avatar },
+        ],
       };
     }
-    case 'LOGOUT': {
+    case 'DELETE_EMPLOYEE': {
       return {
         ...state,
-        auth: {
-          isAuth: false,
-        },
-      };
-    }
-    case 'SET_USER': {
-      return {
-        ...state,
-        user: {
-          email: action.payload.email,
-          name: action.payload.name,
-          imageUrl: action.payload.imageUrl,
-          myRewards: 250,
-          give: 0,
-        },
-      };
-    }
-    case 'DELETE_USER': {
-      return {
-        ...state,
-        user: null,
+        employees: state.employees.filter((employee) => employee.name !== action.payload.name),
       };
     }
   }
-
   return state;
 };

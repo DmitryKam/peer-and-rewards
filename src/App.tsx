@@ -4,7 +4,8 @@ import { Employee } from './components/Employee/Employee';
 import { FeelAndRewardsContainer } from './components/FeelAndRewards/FeelAndRewardsContainer';
 import { HeaderBar } from './components/HeaderBar/HeaderBar';
 import { Layout } from './components/Layout/Layout';
-import { AppState } from './store/AppState';
+import { AppState } from './store/appContext/AppState';
+import { AuthState } from './store/authContext/AuthState';
 import { useStylesApp } from './styles/styles';
 
 export const App: React.FC = () => {
@@ -16,13 +17,15 @@ export const App: React.FC = () => {
 
   return (
     <div className={classes.root}>
-      <AppState>
-        <HeaderBar />
-        <Layout>
-          <Employee />
-          <FeelAndRewardsContainer />
-        </Layout>
-      </AppState>
+      <AuthState>
+        <AppState>
+          <HeaderBar />
+          <Layout>
+            <Employee />
+            <FeelAndRewardsContainer />
+          </Layout>
+        </AppState>
+      </AuthState>
     </div>
   );
 };

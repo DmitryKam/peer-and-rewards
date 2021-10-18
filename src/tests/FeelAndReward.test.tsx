@@ -4,12 +4,12 @@ import { render } from '@testing-library/react';
 
 import '@testing-library/jest-dom/extend-expect';
 import { FeelAndRewards } from '../components/FeelAndRewards/FeelAndRewards';
-import { initialState } from '../store/state';
+import { appInitialState } from '../store/state';
 
 test('FeelAndRewards should render', () => {
   const { getByText } = render(
     <FeelAndRewards
-      state={initialState}
+      state={appInitialState}
       handleChange={jest.fn()}
       open={false}
       value={0}
@@ -17,9 +17,9 @@ test('FeelAndRewards should render', () => {
       handleOpen={jest.fn()}
       handleClose={jest.fn()}
       addRewardToEmployee={jest.fn()}
-      currentEmployee={initialState.employees[0]}
+      currentEmployee={appInitialState.employees[0]}
       autocompleteData={['One,Two']}
-      myRewards={initialState.rewardsData}
+      myRewards={appInitialState.rewardsData}
     />,
   );
 

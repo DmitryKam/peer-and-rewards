@@ -1,9 +1,6 @@
-import { InitialStateType } from './types';
+import { AppInitialStateType, AuthInitialStateType } from './types';
 
-export const initialState: InitialStateType = {
-  auth: {
-    isAuth: false,
-  },
+export const appInitialState: AppInitialStateType = {
   employees: [
     {
       name: 'James William',
@@ -61,6 +58,12 @@ export const initialState: InitialStateType = {
       date: new Date(2021, 1, 14),
     },
   ],
-  user: null,
   errors: null,
+};
+
+export const authInitialStateType: AuthInitialStateType = {
+  auth: {
+    isAuth: false,
+  },
+  user: null,
 };

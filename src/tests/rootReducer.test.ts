@@ -1,6 +1,6 @@
 import { addReward, resetError, setError } from '../store/actions';
-import { rootReducer } from '../store/rootReducer';
-import { initialState } from '../store/state';
+import { appReducer } from '../store/appReducer';
+import { appInitialState } from '../store/state';
 
 describe('reducer tests', () => {
   const employees = [
@@ -42,27 +42,27 @@ describe('reducer tests', () => {
   ];
   it('Add reward should be added', () => {
     const action = addReward(employees, 'James William', 'John Chen', 'Thanks for your help');
-    const endState = rootReducer(initialState, action);
-    expect(initialState.employees[0].name).toBe('James William');
-    expect(initialState.employees[0].myReward).toBe(250);
-    expect(initialState.employees[2].name).toBe('John Chen');
-    expect(initialState.employees[2].myReward).toBe(200);
+    const endState = appReducer(appInitialState, action);
+    expect(appInitialState.employees[0].name).toBe('James William');
+    expect(appInitialState.employees[0].myReward).toBe(250);
+    expect(appInitialState.employees[2].name).toBe('John Chen');
+    expect(appInitialState.employees[2].myReward).toBe(200);
     expect(endState.employees[0].name).toBe('James William');
     expect(endState.employees[0].myReward).toBe(150);
     expect(endState.employees[0].give).toBe(200);
     expect(endState.employees[1].name).toBe('John Chen');
     expect(endState.employees[1].myReward).toBe(300);
-    expect(initialState.rewardsData.length).toBe(3);
+    expect(appInitialState.rewardsData.length).toBe(3);
     expect(endState.rewardsData.length).toBe(4);
   });
   it('error should be added and deleted', () => {
     const action = setError('Some Error');
-    const endState = rootReducer(initialState, action);
+    const endState = appReducer(appInitialState, action);
     expect(endState.errors).toBe('Some Error');
   });
   it('error should be deleted', () => {
     const action = resetError();
-    const endState = rootReducer(initialState, action);
+    const endState = appReducer(appInitialState, action);
     expect(endState.errors).toBe(null);
   });
 });

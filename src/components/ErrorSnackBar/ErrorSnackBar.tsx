@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 
 import Snackbar from '@mui/material/Snackbar';
 
-import { AppContext } from '../../store/appContext';
+import { AppContext } from '../../store/appContext/appContext';
 import { Alert } from './Alert/Alert';
 
 type HandleClosePropsType = {

@@ -1,6 +1,16 @@
 import { GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
 
-import { addReward, deleteUser, logIn, logOut, resetError, setError, setUser } from './actions';
+import {
+  addEmployee,
+  addReward,
+  deleteCurrentEmployee,
+  deleteUser,
+  logIn,
+  logOut,
+  resetError,
+  setError,
+  setUser,
+} from './actions';
 
 export type EmployeeType = {
   name: string;
@@ -27,29 +37,41 @@ type UserType = {
   give: number;
 };
 
-export type InitialStateType = {
-  auth: AuthType;
+export type AppInitialStateType = {
   employees: Array<EmployeeType>;
   rewardsData: Array<RewardsDataType>;
   errors: string | null;
+};
+
+export type AuthInitialStateType = {
+  auth: AuthType;
   user: UserType | null;
 };
 
-export type ContextType = {
-  state: InitialStateType;
+export type AppContextType = {
+  state: AppInitialStateType;
   addRewardToEmployee: (to: string, amount: number, why: string) => void;
-  currentEmployee: EmployeeType;
+  setEmployee: () => void;
+  getError: (e: string) => void;
+  deleteEmployee: () => void;
   myRewards: Array<RewardsDataType>;
   autocompleteData: string[];
+};
+
+export type AuthContextType = {
+  state: AuthInitialStateType;
   successLogin: (res: GoogleLoginResponse | GoogleLoginResponseOffline) => void;
-  onFailLogin: (res: { details: string; error: string }) => void;
   successLogout: () => void;
 };
 
-export type ActionTypes =
+export type AppActionTypes =
   | ReturnType<typeof addReward>
   | ReturnType<typeof setError>
   | ReturnType<typeof resetError>
+  | ReturnType<typeof addEmployee>
+  | ReturnType<typeof deleteCurrentEmployee>;
+
+export type AuthActionTypes =
   | ReturnType<typeof logIn>
   | ReturnType<typeof logOut>
   | ReturnType<typeof setUser>

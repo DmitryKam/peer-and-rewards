@@ -8,7 +8,7 @@ import Tabs from '@mui/material/Tabs';
 import SwipeableViews from 'react-swipeable-views';
 
 import { a11yProps } from '../../helpers/helpers';
-import { EmployeeType, InitialStateType, RewardsDataType } from '../../store/types';
+import { EmployeeType, AppInitialStateType, RewardsDataType } from '../../store/types';
 import { fabStyle, useStylesFellAndRewards } from '../../styles/styles';
 import { FeedItem } from '../FeedItem/FeedItem';
 import { ModalForm } from '../ModalForm/ModalForm';
@@ -17,7 +17,7 @@ import { TabPanel } from '../TabPanel/TabPanel';
 type FeelAndRewardsPropsType = {
   value: number;
   open: boolean;
-  state: InitialStateType;
+  state: AppInitialStateType;
   addRewardToEmployee: (to: string, amount: number, why: string) => void;
   myRewards: Array<RewardsDataType>;
   autocompleteData: string[];

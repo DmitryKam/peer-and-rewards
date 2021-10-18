@@ -5,14 +5,21 @@ import { AppBar, Box, IconButton, Toolbar } from '@mui/material';
 import { GoogleLogout } from 'react-google-login';
 
 import { PrimaryButton } from '../../common/Buttons/PrimaryButton';
-import { AppContext } from '../../store/appContext';
+import { AppContext } from '../../store/appContext/appContext';
+import { AuthContext } from '../../store/authContext/authContext';
 import { appBarColor, useStylesHeaderBar } from '../../styles/styles';
 
 const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID as string;
 
 export const HeaderBar: React.FC = () => {
   const classes = useStylesHeaderBar();
-  const { state, successLogout } = useContext(AppContext);
+  const { state, successLogout } = useContext(AuthContext);
+  const { deleteEmployee } = useContext(AppContext);
+
+  const logout = () => {
+    successLogout();
+    deleteEmployee();
+  };
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -24,7 +31,7 @@ export const HeaderBar: React.FC = () => {
           <div className={classes.appBarText}>Peer and Rewards</div>
           {state.auth.isAuth ? (
             <GoogleLogout
-              onLogoutSuccess={successLogout}
+              onLogoutSuccess={logout}
               render={(renderProps) => {
                 return <PrimaryButton onClick={renderProps.onClick}>Logout</PrimaryButton>;
               }}

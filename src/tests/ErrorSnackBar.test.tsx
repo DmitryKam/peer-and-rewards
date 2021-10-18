@@ -4,13 +4,13 @@ import { render } from '@testing-library/react';
 
 import '@testing-library/jest-dom/extend-expect';
 import { ErrorSnackBar } from '../components/ErrorSnackBar/ErrorSnackBar';
-import { AppContext } from '../store/appContext';
-import { initialState } from '../store/state';
-import { InitialStateType } from '../store/types';
+import { AppContext } from '../store/appContext/appContext';
+import { appInitialState } from '../store/state';
+import { AppInitialStateType } from '../store/types';
 
 test('ErrorSnackBar should render with error', () => {
-  const fakeState: InitialStateType = {
-    ...initialState,
+  const fakeState: AppInitialStateType = {
+    ...appInitialState,
     errors: 'This is error',
   };
   const handleClose = jest.fn();

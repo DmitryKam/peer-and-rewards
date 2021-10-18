@@ -40,6 +40,23 @@ export const setUser = (name: string, email: string, imageUrl: string) =>
     payload: { name, email, imageUrl },
   } as const);
 
+export const addEmployee = (name: string, avatar: string) =>
+  ({
+    type: 'ADD_EMPLOYEE',
+    payload: {
+      name,
+      avatar,
+    },
+  } as const);
+
+export const deleteCurrentEmployee = (name: string) =>
+  ({
+    type: 'DELETE_EMPLOYEE',
+    payload: {
+      name,
+    },
+  } as const);
+
 export const deleteUser = () =>
   ({
     type: 'DELETE_USER',

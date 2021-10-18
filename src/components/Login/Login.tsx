@@ -4,14 +4,20 @@ import { Paper } from '@mui/material';
 import GoogleLogin from 'react-google-login';
 
 import { PrimaryButton } from '../../common/Buttons/PrimaryButton';
-import { AppContext } from '../../store/appContext';
+import { AppContext } from '../../store/appContext/appContext';
+import { AuthContext } from '../../store/authContext/authContext';
 import { useStylesLogin } from '../../styles/styles';
 
 const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 
 export const Login: React.FC = () => {
-  const { successLogin, onFailLogin } = useContext(AppContext);
+  const { successLogin } = useContext(AuthContext);
+  const { getError } = useContext(AppContext);
   const classes = useStylesLogin();
+
+  const onFailLogin = (res: { details: string; error: string }) => {
+    getError(res.details);
+  };
 
   return (
     <div className={classes.root}>

@@ -1,16 +1,27 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 
 import { Avatar } from '@mui/material';
 
-import { AppContext } from '../../store/appContext';
+import { AppContext } from '../../store/appContext/appContext';
+import { AuthContext } from '../../store/authContext/authContext';
 import { useStylesEmployee } from '../../styles/styles';
 import { Login } from '../Login/Login';
 
 export const Employee: React.FC = () => {
+  console.log('Employee component');
   const classes = useStylesEmployee();
-  const { currentEmployee, state } = useContext(AppContext);
+  const { state, setEmployee } = useContext(AppContext);
+  const { state: authState } = useContext(AuthContext);
+  useEffect(() => {
+    setEmployee();
+  }, [setEmployee]);
+  console.log(state);
 
-  if (!state.user) {
+  const currentEmployee = state.employees.find(
+    (employee) => employee.name === authState.user?.name,
+  );
+
+  if (!currentEmployee) {
     return <Login />;
   }
 
@@ -21,21 +32,21 @@ export const Employee: React.FC = () => {
           className={classes.avatar}
           alt={currentEmployee.name}
           sx={{ width: 86, height: 86 }}
-          src={state.user.imageUrl}
+          src={currentEmployee.avatar}
         />
-        <div data-testid={'employeeName'}>{state.user.name}</div>
+        <div data-testid={'employeeName'}>{currentEmployee.name}</div>
       </div>
       <div className={classes.infoContainer}>
         <div className={classes.rewardsContainer}>
           <div style={{ marginBottom: 10 }}>My Rewards</div>
           <div data-testid={'myReward'} className={classes.moneyFontSize}>
-            ${state.user.myRewards}
+            ${currentEmployee.myReward}
           </div>
         </div>
         <div className={classes.cashContainer}>
           <div style={{ marginBottom: 10 }}>Give</div>
           <div data-testid={'give'} className={classes.moneyFontSize}>
-            ${state.user.give}
+            ${currentEmployee.give}
           </div>
         </div>
       </div>

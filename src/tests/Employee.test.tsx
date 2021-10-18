@@ -4,7 +4,7 @@ import { render } from '@testing-library/react';
 
 import { Employee } from '../components/Employee/Employee';
 import '@testing-library/jest-dom/extend-expect';
-import { AppState } from '../store/AppState';
+import { AppState } from '../store/state';
 
 test('Employee renders', () => {
   const { getByTestId } = render(
