@@ -4,7 +4,6 @@ import {
   Autocomplete,
   Backdrop,
   Box,
-  Button,
   Fade,
   InputAdornment,
   Modal,
@@ -15,6 +14,7 @@ import Typography from '@mui/material/Typography';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
+import { PrimaryButton } from '../../common/Buttons/PrimaryButton';
 import { boxStyle, useStylesModalForm } from '../../styles/styles';
 import { ErrorItem } from './ErrorItem/ErrorItem';
 
@@ -76,6 +76,7 @@ export const ModalForm: React.FC<ModalFormPropsType> = React.memo(
               </Typography>
               <Autocomplete
                 disablePortal
+                color={'purple'}
                 fullWidth={true}
                 onChange={(event, value) => {
                   formik.setFieldValue('toEmployee', value);
@@ -87,10 +88,10 @@ export const ModalForm: React.FC<ModalFormPropsType> = React.memo(
                     id="toEmployee"
                     name="toEmployee"
                     type="text"
+                    color={'secondary'}
                     onChange={formik.handleChange}
                     value={formik.values.toEmployee}
                     fullWidth={true}
-                    //inputProps={{ 'data-testid': 'toEmployee' }}
                     error={!!formik.errors.toEmployee}
                   />
                 )}
@@ -106,11 +107,14 @@ export const ModalForm: React.FC<ModalFormPropsType> = React.memo(
                 id="amount"
                 name="amount"
                 type="number"
+                color={'secondary'}
                 onChange={formik.handleChange}
                 value={formik.values.amount}
                 fullWidth={true}
                 startAdornment={<InputAdornment position="start">$</InputAdornment>}
-                inputProps={{ 'data-testid': 'amount' }}
+                inputProps={{
+                  'data-testid': 'amount',
+                }}
                 error={!!formik.errors.amount}
               />
               {formik.touched.amount && formik.errors.amount && (
@@ -127,6 +131,7 @@ export const ModalForm: React.FC<ModalFormPropsType> = React.memo(
                 value={formik.values.why}
                 placeholder={'Why?'}
                 rows={4}
+                color={'secondary'}
                 fullWidth={true}
                 inputProps={{ 'data-testid': 'why' }}
                 error={!!formik.errors.why}
@@ -135,9 +140,7 @@ export const ModalForm: React.FC<ModalFormPropsType> = React.memo(
                 <ErrorItem>{formik.errors.why}</ErrorItem>
               )}
               <div className={classes.buttonContainer}>
-                <Button variant="contained" disableElevation type={'submit'}>
-                  Reward
-                </Button>
+                <PrimaryButton type={'submit'}>Reward</PrimaryButton>
               </div>
             </form>
           </Box>

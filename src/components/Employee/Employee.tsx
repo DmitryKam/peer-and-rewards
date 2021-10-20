@@ -8,14 +8,13 @@ import { useStylesEmployee } from '../../styles/styles';
 import { Login } from '../Login/Login';
 
 export const Employee: React.FC = () => {
-  console.log('Employee component');
   const classes = useStylesEmployee();
   const { state, setEmployee } = useContext(AppContext);
   const { state: authState } = useContext(AuthContext);
+
   useEffect(() => {
     setEmployee();
   }, [setEmployee]);
-  console.log(state);
 
   const currentEmployee = state.employees.find(
     (employee) => employee.name === authState.user?.name,

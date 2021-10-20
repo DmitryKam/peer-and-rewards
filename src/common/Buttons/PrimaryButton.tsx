@@ -5,7 +5,7 @@ import { styled } from '@mui/system';
 
 const PrimaryButtonRoot = styled('button')(`
   background-color: #ffc126;
-  padding: 10px 40px 10px 40px;
+  padding: 15px 40px 15px 40px;
   border-radius: 10px;
   color: #000a34;
   font-weight: bold;
@@ -15,6 +15,7 @@ const PrimaryButtonRoot = styled('button')(`
   cursor: pointer;
   box-shadow: 0 4px 20px 0 rgba(61, 71, 82, 0.1), 0 0 0 0 rgba(0, 127, 255, 0);
   border: none;
+  width: 135px;
 
   &:hover {
     background-color: #ffdb80;

@@ -25,6 +25,21 @@ export const useStylesTabPanel = makeStyles({
   root: {
     padding: '10px 40px 30px 30px',
     height: 400,
+    overflowY: 'auto',
+    margin: 0,
+    listStyle: 'none',
+    '&::-webkit-scrollbar': {
+      width: 9,
+    },
+    '&::-webkit-scrollbar-track': {
+      boxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)',
+      webkitBoxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)',
+    },
+    '&::-webkit-scrollbar-thumb': {
+      backgroundColor: '#fff',
+      borderRadius: 10,
+      outline: '1px solid black',
+    },
   },
 });
 
@@ -47,6 +62,8 @@ export const useStylesEmployee = makeStyles({
     marginTop: 50,
     marginLeft: 100,
     alignItems: 'center',
+    fontFamily: 'Circular Std,sans-serif',
+    fontSize: 18,
   },
   avatarContainer: {
     display: 'flex',
@@ -69,6 +86,7 @@ export const useStylesEmployee = makeStyles({
   },
   moneyFontSize: {
     fontSize: 24,
+    color: '#911b91',
     '@media (max-width: 705px)': {
       fontSize: 20,
     },

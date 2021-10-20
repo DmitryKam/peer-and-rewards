@@ -2,17 +2,14 @@ import React, { SyntheticEvent } from 'react';
 
 import AddIcon from '@mui/icons-material/Add';
 import Fab from '@mui/material/Fab';
-import { useTheme } from '@mui/material/styles';
-import Tab from '@mui/material/Tab';
-import Tabs from '@mui/material/Tabs';
-import SwipeableViews from 'react-swipeable-views';
 
 import { a11yProps } from '../../helpers/helpers';
-import { EmployeeType, AppInitialStateType, RewardsDataType } from '../../store/types';
+import { AppInitialStateType, EmployeeType, RewardsDataType } from '../../store/types';
 import { fabStyle, useStylesFellAndRewards } from '../../styles/styles';
 import { FeedItem } from '../FeedItem/FeedItem';
 import { ModalForm } from '../ModalForm/ModalForm';
 import { TabPanel } from '../TabPanel/TabPanel';
+import { StyledTab, StyledTabs } from './Tabs/StyledTabs/StyledTabs';
 
 type FeelAndRewardsPropsType = {
   value: number;
@@ -25,7 +22,6 @@ type FeelAndRewardsPropsType = {
   handleOpen: () => void;
   handleClose: () => void;
   handleChange: (event: SyntheticEvent, newValue: number) => void;
-  handleChangeIndex: (index: number) => void;
 };
 
 export const FeelAndRewards: React.FC<FeelAndRewardsPropsType> = React.memo(
@@ -40,9 +36,7 @@ export const FeelAndRewards: React.FC<FeelAndRewardsPropsType> = React.memo(
     handleOpen,
     handleClose,
     handleChange,
-    handleChangeIndex,
   }) => {
-    const theme = useTheme();
     const classes = useStylesFellAndRewards();
     return (
       <div className={classes.root}>
@@ -58,30 +52,18 @@ export const FeelAndRewards: React.FC<FeelAndRewardsPropsType> = React.memo(
             </Fab>
           </div>
         </div>
-        <Tabs
-          className={classes.tabsContainer}
-          value={value}
-          onChange={handleChange}
-          indicatorColor="primary"
-          textColor="primary"
-          aria-label="feed"
-        >
-          <Tab label="Feed" {...a11yProps(0)} />
-          <Tab label="My Rewards" {...a11yProps(1)} />
-        </Tabs>
+        <StyledTabs value={value} onChange={handleChange} aria-label="feed">
+          <StyledTab label="Feed" {...a11yProps(0)} />
+          <StyledTab label="My Rewards" {...a11yProps(1)} />
+        </StyledTabs>
         <hr />
-        <SwipeableViews
-          axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-          index={value}
-          onChangeIndex={handleChangeIndex}
-          className={classes.itemContainer}
-        >
-          <TabPanel value={value} index={value}>
+        <div className={classes.itemContainer}>
+          <TabPanel value={value} index={0}>
             {state.rewardsData.map((data, index) => {
               return <FeedItem key={data.from + index} employees={state.employees} {...data} />;
             })}
           </TabPanel>
-          <TabPanel value={value} index={value}>
+          <TabPanel value={value} index={1}>
             {myRewards.map((data, index) => {
               return (
                 <FeedItem
@@ -95,7 +77,7 @@ export const FeelAndRewards: React.FC<FeelAndRewardsPropsType> = React.memo(
               );
             })}
           </TabPanel>
-        </SwipeableViews>
+        </div>
         <ModalForm
           data-testid={'modalOpen'}
           open={open}

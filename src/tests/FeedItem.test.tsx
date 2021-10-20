@@ -32,4 +32,5 @@ test('FeelAndRewards should render my Reward list', () => {
   const textRewardEl = getByText(/James William rewarded by John Chen/i);
   const textWhyEl = getByText(/Tests/i);
   expect(textWhyEl).toHaveTextContent('Tests');
+  expect(textRewardEl).toHaveTextContent('James William rewarded by John Chen');
 });

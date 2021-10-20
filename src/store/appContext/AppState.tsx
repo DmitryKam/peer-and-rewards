@@ -12,16 +12,16 @@ export const AppState: React.FC = ({ children }) => {
   const { state: authState } = useContext(AuthContext);
   const [state, dispatch] = useReducer(appReducer, appInitialState);
   const currentName = useRef<string>('');
-  console.log(currentName);
+
   if (!currentName.current && authState.user?.name) {
     currentName.current = authState.user.name;
   }
 
-  //const currentEmployee = state.employees.find((employee) => employee.name === currentName.current);
   const myRewards = state.rewardsData.filter(
     (rewardItem) => rewardItem.from === currentName.current,
   );
   const autocompleteData: Array<string> = [];
+
   state.employees.map((e) => {
     if (e.name === currentName.current) {
       return;
@@ -60,16 +60,22 @@ export const AppState: React.FC = ({ children }) => {
     [state.employees, dispatch],
   );
 
-  const closeError = (event?: React.SyntheticEvent, reason?: string) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-    dispatch(resetError());
-  };
+  const closeError = useCallback(
+    (event?: React.SyntheticEvent, reason?: string) => {
+      if (reason === 'clickaway') {
+        return;
+      }
+      dispatch(resetError());
+    },
+    [dispatch],
+  );
 
-  const getError = (error: string) => {
-    dispatch(setError(error));
-  };
+  const getError = useCallback(
+    (error: string) => {
+      dispatch(setError(error));
+    },
+    [dispatch],
+  );
 
   const setEmployee = useCallback(() => {
     if (authState.user) {

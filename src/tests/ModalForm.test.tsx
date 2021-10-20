@@ -10,7 +10,7 @@ test('Modal form submit without error', async () => {
   const addRewardToEmployee = jest.fn();
   const handleClose = jest.fn();
   const autocompleteData = ['James William', 'John Chen'];
-  const { getByTestId, getByRole, getByText, getByDisplayValue, debug } = render(
+  const { getByTestId, getByRole, getByText } = render(
     <ModalForm
       addRewardToEmployee={addRewardToEmployee}
       autocompleteData={autocompleteData}

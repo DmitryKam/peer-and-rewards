@@ -1,8 +1,14 @@
-import { addReward, resetError, setError } from '../store/actions';
+import {
+  addEmployee,
+  addReward,
+  deleteCurrentEmployee,
+  resetError,
+  setError,
+} from '../store/actions';
 import { appReducer } from '../store/appReducer';
-import { appInitialState } from '../store/state';
+import { appFakeState } from '../store/fakeContext/fakeState';
 
-describe('reducer tests', () => {
+describe('app reducer tests', () => {
   const employees = [
     {
       name: 'James William',
@@ -42,27 +48,37 @@ describe('reducer tests', () => {
   ];
   it('Add reward should be added', () => {
     const action = addReward(employees, 'James William', 'John Chen', 'Thanks for your help');
-    const endState = appReducer(appInitialState, action);
-    expect(appInitialState.employees[0].name).toBe('James William');
-    expect(appInitialState.employees[0].myReward).toBe(250);
-    expect(appInitialState.employees[2].name).toBe('John Chen');
-    expect(appInitialState.employees[2].myReward).toBe(200);
+    const endState = appReducer(appFakeState, action);
+    expect(appFakeState.employees[0].name).toBe('James William');
+    expect(appFakeState.employees[0].myReward).toBe(250);
+    expect(appFakeState.employees[2].name).toBe('John Chen');
+    expect(appFakeState.employees[2].myReward).toBe(200);
     expect(endState.employees[0].name).toBe('James William');
     expect(endState.employees[0].myReward).toBe(150);
     expect(endState.employees[0].give).toBe(200);
     expect(endState.employees[1].name).toBe('John Chen');
     expect(endState.employees[1].myReward).toBe(300);
-    expect(appInitialState.rewardsData.length).toBe(3);
+    expect(appFakeState.rewardsData.length).toBe(3);
     expect(endState.rewardsData.length).toBe(4);
   });
   it('error should be added and deleted', () => {
     const action = setError('Some Error');
-    const endState = appReducer(appInitialState, action);
+    const endState = appReducer(appFakeState, action);
     expect(endState.errors).toBe('Some Error');
   });
   it('error should be deleted', () => {
     const action = resetError();
-    const endState = appReducer(appInitialState, action);
+    const endState = appReducer(appFakeState, action);
     expect(endState.errors).toBe(null);
+  });
+  it('employee should be added', () => {
+    const action = addEmployee('Fake User', 'avatar');
+    const endState = appReducer(appFakeState, action);
+    expect(endState.employees).toHaveLength(7);
+  });
+  it('employee should be deleted', () => {
+    const action = deleteCurrentEmployee('James William');
+    const endState = appReducer(appFakeState, action);
+    expect(endState.employees).toHaveLength(5);
   });
 });

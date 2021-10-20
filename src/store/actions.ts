@@ -1,5 +1,6 @@
 import { EmployeeType } from './types';
 
+// app action
 export const addReward = (employee: Array<EmployeeType>, from: string, to: string, why: string) =>
   ({
     type: 'ADD_REWARDS',
@@ -24,22 +25,6 @@ export const resetError = () =>
     type: 'RESET_ERROR',
   } as const);
 
-export const logIn = () =>
-  ({
-    type: 'LOGIN',
-  } as const);
-
-export const logOut = () =>
-  ({
-    type: 'LOGOUT',
-  } as const);
-
-export const setUser = (name: string, email: string, imageUrl: string) =>
-  ({
-    type: 'SET_USER',
-    payload: { name, email, imageUrl },
-  } as const);
-
 export const addEmployee = (name: string, avatar: string) =>
   ({
     type: 'ADD_EMPLOYEE',
@@ -55,6 +40,23 @@ export const deleteCurrentEmployee = (name: string) =>
     payload: {
       name,
     },
+  } as const);
+
+// auth action
+export const logIn = () =>
+  ({
+    type: 'LOGIN',
+  } as const);
+
+export const logOut = () =>
+  ({
+    type: 'LOGOUT',
+  } as const);
+
+export const setUser = (name: string, email: string, imageUrl: string) =>
+  ({
+    type: 'SET_USER',
+    payload: { name, email, imageUrl },
   } as const);
 
 export const deleteUser = () =>

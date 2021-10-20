@@ -4,30 +4,30 @@ import { render } from '@testing-library/react';
 
 import '@testing-library/jest-dom/extend-expect';
 import { FeelAndRewards } from '../components/FeelAndRewards/FeelAndRewards';
-import { appInitialState } from '../store/state';
+import { appFakeState } from '../store/fakeContext/fakeState';
 
 test('FeelAndRewards should render', () => {
-  const { getByText } = render(
+  const { getByText, debug } = render(
     <FeelAndRewards
-      state={appInitialState}
+      state={appFakeState}
       handleChange={jest.fn()}
       open={false}
       value={0}
-      handleChangeIndex={jest.fn()}
       handleOpen={jest.fn()}
       handleClose={jest.fn()}
       addRewardToEmployee={jest.fn()}
-      currentEmployee={appInitialState.employees[0]}
+      currentEmployee={appFakeState.employees[0]}
       autocompleteData={['One,Two']}
-      myRewards={appInitialState.rewardsData}
+      myRewards={[]}
     />,
   );
 
+  debug();
   const textEl = getByText(/Alex Brown rewarded by Rajesh Kumar/i);
   const feedEl = getByText(/Feed/i);
   const myRewardEl = getByText(/My Rewards/i);
 
-  expect(textEl).toBeInTheDocument();
+  expect(textEl).toHaveTextContent('Alex Brown rewarded by Rajesh Kumar');
   expect(feedEl).toHaveTextContent('Feed');
   expect(myRewardEl).toHaveTextContent('My Rewards');
 });

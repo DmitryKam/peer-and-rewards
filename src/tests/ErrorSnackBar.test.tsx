@@ -5,31 +5,34 @@ import { render } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import { ErrorSnackBar } from '../components/ErrorSnackBar/ErrorSnackBar';
 import { AppContext } from '../store/appContext/appContext';
-import { appInitialState } from '../store/state';
+import { AuthContext } from '../store/authContext/authContext';
+import { appFakeState, authFakeState } from '../store/fakeContext/fakeState';
 import { AppInitialStateType } from '../store/types';
 
 test('ErrorSnackBar should render with error', () => {
   const fakeState: AppInitialStateType = {
-    ...appInitialState,
+    ...appFakeState,
     errors: 'This is error',
   };
   const handleClose = jest.fn();
-  const addRewardToEmployee = jest.fn();
-  const currentEmployee = fakeState.employees[0];
-  const myRewards = fakeState.rewardsData;
-  const autocompleteData = ['1', '2'];
 
   const { getByText } = render(
     <AppContext.Provider
       value={{
         state: fakeState,
-        addRewardToEmployee,
-        currentEmployee,
-        myRewards,
-        autocompleteData,
+        deleteEmployee: jest.fn(),
+        setEmployee: jest.fn(),
+        addRewardToEmployee: jest.fn(),
+        getError: jest.fn(),
+        myRewards: [],
+        autocompleteData: ['1', '2'],
       }}
     >
-      <ErrorSnackBar handleClose={handleClose} />
+      <AuthContext.Provider
+        value={{ state: authFakeState, successLogin: jest.fn(), successLogout: jest.fn() }}
+      >
+        <ErrorSnackBar handleClose={handleClose} />
+      </AuthContext.Provider>
     </AppContext.Provider>,
   );
   const text = getByText(/This is error/i);

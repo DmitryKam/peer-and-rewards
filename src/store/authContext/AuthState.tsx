@@ -12,7 +12,6 @@ export const AuthState: React.FC = ({ children }) => {
 
   const successLogin = useCallback(
     (res: GoogleLoginResponse | GoogleLoginResponseOffline) => {
-      console.log('user', res);
       if ('profileObj' in res) {
         dispatch(setUser(res.profileObj.name, res.profileObj.email, res.profileObj.imageUrl));
         dispatch(logIn());
@@ -21,9 +20,9 @@ export const AuthState: React.FC = ({ children }) => {
     [dispatch],
   );
 
-  const successLogout = () => {
+  const successLogout = useCallback(() => {
     dispatch(logOut());
-  };
+  }, [dispatch]);
 
   return (
     <AuthContext.Provider value={{ state, successLogin, successLogout }}>

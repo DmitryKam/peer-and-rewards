@@ -20,13 +20,10 @@ export const FeelAndRewardsContainer = () => {
     setValue(newValue);
   };
 
-  const handleChangeIndex = (index: number) => {
-    setValue(index);
-  };
-
   if (!currentEmployee) {
-    return <div>dsfds</div>;
+    return <div>Something went wrong!</div>;
   }
+
   return (
     <FeelAndRewards
       value={value}
@@ -39,7 +36,6 @@ export const FeelAndRewardsContainer = () => {
       currentEmployee={currentEmployee}
       handleChange={handleChange}
       handleOpen={handleOpen}
-      handleChangeIndex={handleChangeIndex}
     />
   );
 };
