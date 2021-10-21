@@ -23,6 +23,9 @@ export const StyledTabs = styled((props: StyledTabsProps) => (
     maxWidth: 40,
     width: '100%',
   },
+  '@media (max-width: 580px)': {
+    marginLeft: 20,
+  },
 });
 
 type StyledTabProps = {

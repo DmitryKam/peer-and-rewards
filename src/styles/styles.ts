@@ -9,7 +9,16 @@ export const useStylesFellAndRewards = makeStyles({
   iconContainer: {
     position: 'relative',
   },
-  iconPosition: { position: 'absolute', right: 90, top: 27, zIndex: 999 },
+  iconPosition: {
+    position: 'absolute',
+    right: 90,
+    top: 27,
+    zIndex: 999,
+    '@media (max-width: 650px)': {
+      right: 5,
+      top: 60,
+    },
+  },
   input: {
     textAlign: 'center',
     color: 'red',
@@ -64,6 +73,9 @@ export const useStylesEmployee = makeStyles({
     alignItems: 'center',
     fontFamily: 'Circular Std,sans-serif',
     fontSize: 18,
+    '@media (max-width: 580px)': {
+      marginLeft: 20,
+    },
   },
   avatarContainer: {
     display: 'flex',
@@ -114,6 +126,9 @@ export const useStylesHeaderBar = makeStyles({
     letterSpacing: 0.3,
     fontFamily: 'Circular Std,sans-serif',
     marginLeft: 20,
+    '@media (max-width: 580px)': {
+      fontSize: 16,
+    },
   },
 });
 
