@@ -3,6 +3,7 @@ import React, { useContext } from 'react';
 import Snackbar from '@mui/material/Snackbar';
 
 import { AppContext } from '../../store/appContext/appContext';
+import { alertWidth } from '../../styles/styles';
 import { Alert } from './Alert/Alert';
 
 type HandleClosePropsType = {
@@ -19,7 +20,7 @@ export const ErrorSnackBar: React.FC<HandleClosePropsType> = ({ handleClose }) =
       onClose={handleClose}
       anchorOrigin={{ horizontal: 'center', vertical: 'bottom' }}
     >
-      <Alert onClose={handleClose} severity="warning" sx={{ width: '100%' }}>
+      <Alert onClose={handleClose} severity="warning" sx={alertWidth}>
         {state.errors}
       </Alert>
     </Snackbar>

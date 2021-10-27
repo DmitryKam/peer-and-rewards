@@ -28,6 +28,13 @@ export const useStylesFellAndRewards = makeStyles({
     backgroundColor: '#f5f5f5',
   },
   tabsContainer: { marginLeft: 120 },
+  noMyRewards: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    fontFamily: 'Circular Std,sans-serif',
+    fontSize: 20,
+  },
 });
 
 export const useStylesTabPanel = makeStyles({
@@ -45,9 +52,9 @@ export const useStylesTabPanel = makeStyles({
       webkitBoxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)',
     },
     '&::-webkit-scrollbar-thumb': {
-      backgroundColor: '#fff',
+      backgroundColor: '#911b91',
       borderRadius: 10,
-      outline: '1px solid black',
+      outline: '1px solid #911b91',
     },
   },
 });
@@ -109,6 +116,7 @@ export const useStylesEmployee = makeStyles({
       marginLeft: 80,
     },
   },
+  textPosition: { marginBottom: 10 },
 });
 
 export const useStylesLayout = makeStyles({
@@ -164,6 +172,10 @@ export const useStylesLogin = makeStyles({
     fontSize: 20,
     textAlign: 'center',
   },
+  buttonContainer: { alignSelf: 'center' },
+});
+export const useStylesErrorItem = makeStyles({
+  root: { marginTop: 10, color: 'tomato' },
 });
 
 export const boxStyle = {
@@ -179,3 +191,9 @@ export const boxStyle = {
 
 export const fabStyle = { backgroundColor: '#f8f8f8', border: '2px solid #696969' };
 export const appBarColor = { backgroundColor: '#f5f5f5' };
+export const avatarSize = { width: 86, height: 86 };
+export const avatarItemSize = { width: 56, height: 56 };
+export const alertWidth = { width: '100%' };
+export const burgerMenuButtonColor = { color: '#911b91' };
+export const headerBarFlexGrow = { flexGrow: 1 };
+export const headerBarIconButton = { mr: 2 };

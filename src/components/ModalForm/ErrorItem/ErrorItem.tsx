@@ -1,5 +1,8 @@
 import React from 'react';
 
+import { useStylesErrorItem } from '../../../styles/styles';
+
 export const ErrorItem: React.FC = ({ children }) => {
-  return <div style={{ marginTop: 10, color: 'tomato' }}>{children}</div>;
+  const classes = useStylesErrorItem();
+  return <div className={classes.root}>{children}</div>;
 };

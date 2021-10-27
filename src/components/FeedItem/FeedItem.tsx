@@ -4,7 +4,7 @@ import { Avatar, Tooltip } from '@mui/material';
 import Moment from 'react-moment';
 
 import { EmployeeType } from '../../store/types';
-import { useStylesFeedItem } from '../../styles/styles';
+import { avatarItemSize, useStylesFeedItem } from '../../styles/styles';
 
 type DataPropsType = {
   from: string;
@@ -25,7 +25,7 @@ export const FeedItem: React.FC<DataPropsType> = React.memo(
 
     return (
       <div className={classes.root}>
-        <Avatar alt={employee.name} sx={{ width: 56, height: 56 }} src={employee.avatar} />
+        <Avatar alt={employee.name} sx={avatarItemSize} src={employee.avatar} />
         <div className={classes.feedContainer}>
           <div className={classes.userContainer}>
             <div>

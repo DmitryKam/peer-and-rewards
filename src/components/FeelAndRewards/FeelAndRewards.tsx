@@ -64,18 +64,22 @@ export const FeelAndRewards: React.FC<FeelAndRewardsPropsType> = React.memo(
             })}
           </TabPanel>
           <TabPanel value={value} index={1}>
-            {myRewards.map((data, index) => {
-              return (
-                <FeedItem
-                  key={data.from + index}
-                  from={data.from}
-                  to={data.to}
-                  why={data.why}
-                  date={data.date}
-                  employees={state.employees}
-                />
-              );
-            })}
+            {myRewards.length ? (
+              myRewards.map((data, index) => {
+                return (
+                  <FeedItem
+                    key={data.from + index}
+                    from={data.from}
+                    to={data.to}
+                    why={data.why}
+                    date={data.date}
+                    employees={state.employees}
+                  />
+                );
+              })
+            ) : (
+              <div className={classes.noMyRewards}>No rewards sent</div>
+            )}
           </TabPanel>
         </div>
         <ModalForm

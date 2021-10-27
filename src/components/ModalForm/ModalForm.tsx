@@ -55,7 +55,6 @@ export const ModalForm: React.FC<ModalFormPropsType> = React.memo(
       },
       validationSchema: validationSchema(autocompleteData),
     });
-
     return (
       <Modal
         aria-labelledby="transition-modal-title"

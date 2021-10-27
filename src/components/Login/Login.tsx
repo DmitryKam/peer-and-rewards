@@ -26,14 +26,13 @@ export const Login: React.FC = () => {
           Welcome to the Peer and Reward application. To continue using the application please
           login.
         </div>
-        <div style={{ alignSelf: 'center' }}>
+        <div className={classes.buttonContainer}>
           <GoogleLogin
             clientId={clientId as string}
             buttonText={'login'}
             onSuccess={successLogin}
             onFailure={onFailLogin}
             cookiePolicy={'single_host_origin'}
-            style={{ marginTop: 20 }}
             isSignedIn={false}
             render={(renderProps) => {
               return <PrimaryButton onClick={renderProps.onClick}>Sign In</PrimaryButton>;
