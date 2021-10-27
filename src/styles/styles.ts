@@ -174,6 +174,7 @@ export const useStylesLogin = makeStyles({
   },
   buttonContainer: { alignSelf: 'center' },
 });
+
 export const useStylesErrorItem = makeStyles({
   root: { marginTop: 10, color: 'tomato' },
 });

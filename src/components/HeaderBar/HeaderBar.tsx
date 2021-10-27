@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 
 import MenuIcon from '@mui/icons-material/Menu';
-import { AppBar, Box, IconButton, Toolbar } from '@mui/material';
+import { AppBar, Box, IconButton, Menu, MenuItem, Toolbar } from '@mui/material';
 import { GoogleLogout } from 'react-google-login';
 
 import { PrimaryButton } from '../../common/Buttons/PrimaryButton';
@@ -21,10 +21,23 @@ export const HeaderBar: React.FC = () => {
   const classes = useStylesHeaderBar();
   const { state, successLogout } = useContext(AuthContext);
   const { deleteEmployee } = useContext(AppContext);
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   const logout = () => {
     successLogout();
     deleteEmployee();
+  };
+
+  const logoutMenu = () => {
+    logout();
+    handleClose();
   };
 
   return (
@@ -37,9 +50,22 @@ export const HeaderBar: React.FC = () => {
             color="inherit"
             aria-label="menu"
             sx={headerBarIconButton}
+            onClick={handleClick}
           >
             <MenuIcon style={burgerMenuButtonColor} />
           </IconButton>
+          <Menu
+            id="basic-menu"
+            anchorEl={anchorEl}
+            open={open}
+            onClose={handleClose}
+            MenuListProps={{
+              'aria-labelledby': 'basic-button',
+            }}
+          >
+            <MenuItem onClick={handleClose}>Profile</MenuItem>
+            <MenuItem onClick={logoutMenu}>Logout</MenuItem>
+          </Menu>
           <div className={classes.appBarText}>Peer and Rewards</div>
           {state.auth.isAuth ? (
             <GoogleLogout
