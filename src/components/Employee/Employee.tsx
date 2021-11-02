@@ -1,24 +1,26 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 
 import { Avatar } from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { AppContext } from '../../store/appContext/appContext';
-import { AuthContext } from '../../store/authContext/authContext';
+import { addEmployee } from '../../store/actions';
+import { AppRootStateType } from '../../store/store';
 import { avatarSize, useStylesEmployee } from '../../styles/styles';
 import { Login } from '../Login/Login';
 
 export const Employee: React.FC = () => {
+  const dispatch = useDispatch();
   const classes = useStylesEmployee();
-  const { state, setEmployee } = useContext(AppContext);
-  const { state: authState } = useContext(AuthContext);
+  const employees = useSelector((state: AppRootStateType) => state.app.employees);
+  const user = useSelector((state: AppRootStateType) => state.auth.user);
 
   useEffect(() => {
-    setEmployee();
-  }, [setEmployee]);
+    if (user?.name) {
+      dispatch(addEmployee(user?.name, user?.imageUrl));
+    }
+  }, [dispatch, user?.imageUrl, user?.name]);
 
-  const currentEmployee = state.employees.find(
-    (employee) => employee.name === authState.user?.name,
-  );
+  const currentEmployee = employees.find((employee) => employee.name === user?.name);
 
   if (!currentEmployee) {
     return <Login />;

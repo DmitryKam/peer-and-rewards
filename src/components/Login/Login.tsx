@@ -1,19 +1,35 @@
-import React, { useContext } from 'react';
+import React, { useCallback } from 'react';
 
 import { Paper } from '@mui/material';
-import GoogleLogin from 'react-google-login';
+import GoogleLogin, { GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
+import { useDispatch } from 'react-redux';
 
 import { PrimaryButton } from '../../common/Buttons/PrimaryButton';
-import { AppContext } from '../../store/appContext/appContext';
-import { AuthContext } from '../../store/authContext/authContext';
+import { logIn, setError, setUser } from '../../store/actions';
 import { useStylesLogin } from '../../styles/styles';
 
 const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 
 export const Login: React.FC = () => {
-  const { successLogin } = useContext(AuthContext);
-  const { getError } = useContext(AppContext);
+  const dispatch = useDispatch();
   const classes = useStylesLogin();
+
+  const successLogin = useCallback(
+    (res: GoogleLoginResponse | GoogleLoginResponseOffline) => {
+      if ('profileObj' in res) {
+        dispatch(setUser(res.profileObj.name, res.profileObj.email, res.profileObj.imageUrl));
+        dispatch(logIn());
+      }
+    },
+    [dispatch],
+  );
+
+  const getError = useCallback(
+    (error: string) => {
+      dispatch(setError(error));
+    },
+    [dispatch],
+  );
 
   const onFailLogin = (res: { details: string; error: string }) => {
     getError(res.details);

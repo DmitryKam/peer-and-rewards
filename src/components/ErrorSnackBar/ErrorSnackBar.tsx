@@ -1,8 +1,9 @@
-import React, { useContext } from 'react';
+import React from 'react';
 
 import Snackbar from '@mui/material/Snackbar';
+import { useSelector } from 'react-redux';
 
-import { AppContext } from '../../store/appContext/appContext';
+import { AppRootStateType } from '../../store/store';
 import { alertWidth } from '../../styles/styles';
 import { Alert } from './Alert/Alert';
 
@@ -11,17 +12,18 @@ type HandleClosePropsType = {
 };
 
 export const ErrorSnackBar: React.FC<HandleClosePropsType> = ({ handleClose }) => {
-  const { state } = useContext(AppContext);
+  const errors = useSelector((state: AppRootStateType) => state.app.errors);
+
   return (
     <Snackbar
       data-testid={'snack-bar'}
-      open={!!state.errors}
+      open={!!errors}
       autoHideDuration={6000}
       onClose={handleClose}
       anchorOrigin={{ horizontal: 'center', vertical: 'bottom' }}
     >
       <Alert onClose={handleClose} severity="warning" sx={alertWidth}>
-        {state.errors}
+        {errors}
       </Alert>
     </Snackbar>
   );

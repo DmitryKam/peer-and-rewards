@@ -1,31 +1,41 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
+
+import { useDispatch } from 'react-redux';
 
 import { Employee } from './components/Employee/Employee';
+import { ErrorSnackBar } from './components/ErrorSnackBar/ErrorSnackBar';
 import { FeelAndRewardsContainer } from './components/FeelAndRewards/FeelAndRewardsContainer';
 import { HeaderBar } from './components/HeaderBar/HeaderBar';
 import { Layout } from './components/Layout/Layout';
-import { AppState } from './store/appContext/AppState';
-import { AuthState } from './store/authContext/AuthState';
+import { resetError } from './store/actions';
 import { useStylesApp } from './styles/styles';
 
 export const App: React.FC = () => {
+  const dispatch = useDispatch();
   const classes = useStylesApp();
 
   useEffect(() => {
     document.title = 'Peer Rewards';
   }, []);
 
+  const closeError = useCallback(
+    (event?: React.SyntheticEvent, reason?: string) => {
+      if (reason === 'clickaway') {
+        return;
+      }
+      dispatch(resetError());
+    },
+    [dispatch],
+  );
+
   return (
     <div className={classes.root}>
-      <AuthState>
-        <AppState>
-          <HeaderBar />
-          <Layout>
-            <Employee />
-            <FeelAndRewardsContainer />
-          </Layout>
-        </AppState>
-      </AuthState>
+      <HeaderBar />
+      <Layout>
+        <Employee />
+        <FeelAndRewardsContainer />
+      </Layout>
+      <ErrorSnackBar handleClose={closeError} />
     </div>
   );
 };

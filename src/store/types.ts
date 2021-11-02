@@ -1,5 +1,3 @@
-import { GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
-
 import {
   addEmployee,
   addReward,
@@ -25,6 +23,7 @@ export type RewardsDataType = {
   why: string;
   date: Date;
 };
+
 type AuthType = {
   isAuth: boolean;
 };
@@ -46,22 +45,6 @@ export type AppInitialStateType = {
 export type AuthInitialStateType = {
   auth: AuthType;
   user: UserType | null;
-};
-
-export type AppContextType = {
-  state: AppInitialStateType;
-  addRewardToEmployee: (to: string, amount: number, why: string) => void;
-  setEmployee: () => void;
-  getError: (e: string) => void;
-  deleteEmployee: () => void;
-  myRewards: Array<RewardsDataType>;
-  autocompleteData: string[];
-};
-
-export type AuthContextType = {
-  state: AuthInitialStateType;
-  successLogin: (res: GoogleLoginResponse | GoogleLoginResponseOffline) => void;
-  successLogout: () => void;
 };
 
 export type AppActionTypes =

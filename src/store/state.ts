@@ -61,7 +61,7 @@ export const appInitialState: AppInitialStateType = {
   errors: null,
 };
 
-export const authInitialStateType: AuthInitialStateType = {
+export const authInitialState: AuthInitialStateType = {
   auth: {
     isAuth: false,
   },
