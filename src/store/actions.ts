@@ -1,9 +1,9 @@
-import { EmployeeType } from './types';
+import { AppActionType, AuthActionType, EmployeeType } from './types';
 
 // app action
 export const addReward = (employee: Array<EmployeeType>, from: string, to: string, why: string) =>
   ({
-    type: 'ADD_REWARDS',
+    type: AppActionType.ADD_REWARDS,
     payload: {
       employee,
       from,
@@ -14,7 +14,7 @@ export const addReward = (employee: Array<EmployeeType>, from: string, to: strin
 
 export const setError = (error: string) =>
   ({
-    type: 'SET_ERROR',
+    type: AppActionType.SET_ERROR,
     payload: {
       error,
     },
@@ -22,12 +22,12 @@ export const setError = (error: string) =>
 
 export const resetError = () =>
   ({
-    type: 'RESET_ERROR',
+    type: AppActionType.RESET_ERROR,
   } as const);
 
 export const addEmployee = (name: string, avatar: string) =>
   ({
-    type: 'ADD_EMPLOYEE',
+    type: AppActionType.ADD_EMPLOYEE,
     payload: {
       name,
       avatar,
@@ -36,7 +36,7 @@ export const addEmployee = (name: string, avatar: string) =>
 
 export const deleteCurrentEmployee = (name: string) =>
   ({
-    type: 'DELETE_EMPLOYEE',
+    type: AppActionType.DELETE_EMPLOYEE,
     payload: {
       name,
     },
@@ -45,21 +45,21 @@ export const deleteCurrentEmployee = (name: string) =>
 // auth action
 export const logIn = () =>
   ({
-    type: 'LOGIN',
+    type: AuthActionType.LOGIN,
   } as const);
 
 export const logOut = () =>
   ({
-    type: 'LOGOUT',
+    type: AuthActionType.LOGOUT,
   } as const);
 
 export const setUser = (name: string, email: string, imageUrl: string) =>
   ({
-    type: 'SET_USER',
+    type: AuthActionType.SET_USER,
     payload: { name, email, imageUrl },
   } as const);
 
 export const deleteUser = () =>
   ({
-    type: 'DELETE_USER',
+    type: AuthActionType.DELETE_USER,
   } as const);

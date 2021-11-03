@@ -1,12 +1,12 @@
 import { appInitialState } from './state';
-import { AppActionTypes, AppInitialStateType } from './types';
+import { AppActionType, AppActionTypes, AppInitialStateType } from './types';
 
 export const appReducer = (
   state: AppInitialStateType = appInitialState,
   action: AppActionTypes,
 ): AppInitialStateType => {
   switch (action.type) {
-    case 'ADD_REWARDS': {
+    case AppActionType.ADD_REWARDS: {
       return {
         ...state,
         employees: [...action.payload.employee],
@@ -21,19 +21,19 @@ export const appReducer = (
         ],
       };
     }
-    case 'SET_ERROR': {
+    case AppActionType.SET_ERROR: {
       return {
         ...state,
         errors: action.payload.error,
       };
     }
-    case 'RESET_ERROR': {
+    case AppActionType.RESET_ERROR: {
       return {
         ...state,
         errors: null,
       };
     }
-    case 'ADD_EMPLOYEE': {
+    case AppActionType.ADD_EMPLOYEE: {
       return {
         ...state,
         employees: [
@@ -42,7 +42,7 @@ export const appReducer = (
         ],
       };
     }
-    case 'DELETE_EMPLOYEE': {
+    case AppActionType.DELETE_EMPLOYEE: {
       return {
         ...state,
         employees: state.employees.filter((employee) => employee.name !== action.payload.name),

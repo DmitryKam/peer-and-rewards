@@ -1,18 +1,18 @@
 import { authInitialState } from './state';
-import { AuthActionTypes, AuthInitialStateType } from './types';
+import { AuthActionType, AuthActionTypes, AuthInitialStateType } from './types';
 
 export const authReducer = (
   state: AuthInitialStateType = authInitialState,
   action: AuthActionTypes,
 ): AuthInitialStateType => {
   switch (action.type) {
-    case 'LOGIN': {
+    case AuthActionType.LOGIN: {
       return {
         ...state,
         auth: { isAuth: true },
       };
     }
-    case 'LOGOUT': {
+    case AuthActionType.LOGOUT: {
       return {
         ...state,
         auth: {
@@ -20,7 +20,7 @@ export const authReducer = (
         },
       };
     }
-    case 'SET_USER': {
+    case AuthActionType.SET_USER: {
       return {
         ...state,
         user: {
@@ -32,7 +32,7 @@ export const authReducer = (
         },
       };
     }
-    case 'DELETE_USER': {
+    case AuthActionType.DELETE_USER: {
       return {
         ...state,
         user: null,

@@ -10,6 +10,21 @@ import {
   setUser,
 } from './actions';
 
+export enum AppActionType {
+  ADD_REWARDS = 'ADD_REWARDS',
+  SET_ERROR = 'SET_ERROR',
+  RESET_ERROR = 'RESET_ERROR',
+  ADD_EMPLOYEE = 'ADD_EMPLOYEE',
+  DELETE_EMPLOYEE = 'DELETE_EMPLOYEE',
+}
+
+export enum AuthActionType {
+  LOGIN = 'LOGIN',
+  LOGOUT = 'LOGOUT',
+  SET_USER = 'SET_USER',
+  DELETE_USER = 'DELETE_USER',
+}
+
 export type EmployeeType = {
   name: string;
   myReward: number;

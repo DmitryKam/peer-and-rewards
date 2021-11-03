@@ -1,6 +1,6 @@
 import { deleteUser, logIn, logOut, setUser } from '../store/actions';
 import { authReducer } from '../store/authReducer';
-import { authFakeState } from '../store/fakeContext/fakeState';
+import { authFakeState } from '../store/fakeStore/fakeState';
 
 describe('auth reducer tests', () => {
   it('login success', () => {

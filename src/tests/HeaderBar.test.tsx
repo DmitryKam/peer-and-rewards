@@ -1,33 +1,30 @@
 import React from 'react';
 
-import { render } from '@testing-library/react';
-
 import '@testing-library/jest-dom/extend-expect';
 import { HeaderBar } from '../components/HeaderBar/HeaderBar';
-import { AppContext } from '../store/appContext/appContext';
-import { AuthContext } from '../store/authContext/authContext';
-import { appFakeState, authFakeState } from '../store/fakeContext/fakeState';
+import { rootFakeState, RootFakeStateType } from '../store/fakeStore/fakeState';
+import { renderWithRedux } from '../store/fakeStore/fakeStore';
+
+const stateWithLogIn: RootFakeStateType = {
+  ...rootFakeState,
+  auth: {
+    ...rootFakeState.auth,
+    auth: {
+      isAuth: true,
+    },
+  },
+};
 
 test('HeaderBar renders', () => {
-  const { getByText } = render(
-    <AppContext.Provider
-      value={{
-        state: appFakeState,
-        deleteEmployee: jest.fn(),
-        setEmployee: jest.fn(),
-        addRewardToEmployee: jest.fn(),
-        getError: jest.fn(),
-        myRewards: [],
-        autocompleteData: ['1', '2'],
-      }}
-    >
-      <AuthContext.Provider
-        value={{ state: authFakeState, successLogin: jest.fn(), successLogout: jest.fn() }}
-      >
-        <HeaderBar />
-      </AuthContext.Provider>
-    </AppContext.Provider>,
-  );
+  const { getByText } = renderWithRedux(<HeaderBar />);
   const text = getByText(/Peer and Rewards/i);
   expect(text).toHaveTextContent('Peer and Rewards');
+});
+
+test('HeaderBar render with logIn', () => {
+  const { getByText, debug } = renderWithRedux(<HeaderBar />, stateWithLogIn);
+  const text = getByText(/Peer and Rewards/i);
+  const buttonEl = getByText(/Logout/i);
+  expect(text).toHaveTextContent('Peer and Rewards');
+  expect(buttonEl).toHaveTextContent('Logout');
 });

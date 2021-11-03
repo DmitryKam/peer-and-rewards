@@ -6,7 +6,7 @@ import {
   setError,
 } from '../store/actions';
 import { appReducer } from '../store/appReducer';
-import { appFakeState } from '../store/fakeContext/fakeState';
+import { appFakeState } from '../store/fakeStore/fakeState';
 
 describe('app reducer tests', () => {
   const employees = [

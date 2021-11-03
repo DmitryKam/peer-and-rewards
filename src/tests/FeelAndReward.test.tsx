@@ -4,7 +4,7 @@ import { render } from '@testing-library/react';
 
 import '@testing-library/jest-dom/extend-expect';
 import { FeelAndRewards } from '../components/FeelAndRewards/FeelAndRewards';
-import { appFakeState } from '../store/fakeContext/fakeState';
+import { appFakeState } from '../store/fakeStore/fakeState';
 
 test('FeelAndRewards should render', () => {
   const { getByText, debug } = render(
@@ -22,7 +22,6 @@ test('FeelAndRewards should render', () => {
     />,
   );
 
-  debug();
   const textEl = getByText(/Alex Brown rewarded by Rajesh Kumar/i);
   const feedEl = getByText(/Feed/i);
   const myRewardEl = getByText(/My Rewards/i);

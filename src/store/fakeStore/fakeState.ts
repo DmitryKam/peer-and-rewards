@@ -1,5 +1,10 @@
 import { AppInitialStateType, AuthInitialStateType } from '../types';
 
+export type RootFakeStateType = {
+  auth: AuthInitialStateType;
+  app: AppInitialStateType;
+};
+
 export const appFakeState: AppInitialStateType = {
   employees: [
     {
@@ -67,7 +72,6 @@ export const appFakeState: AppInitialStateType = {
   ],
   errors: null,
 };
-
 export const authFakeState: AuthInitialStateType = {
   auth: {
     isAuth: false,
@@ -80,4 +84,8 @@ export const authFakeState: AuthInitialStateType = {
     email: 'email@gmail.com',
     myRewards: 250,
   },
+};
+export const rootFakeState: RootFakeStateType = {
+  auth: authFakeState,
+  app: appFakeState,
 };
