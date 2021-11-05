@@ -4,9 +4,9 @@ import { Paper } from '@mui/material';
 import GoogleLogin, { GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
 import { useDispatch } from 'react-redux';
 
-import { PrimaryButton } from '../../common/Buttons/PrimaryButton';
 import { logIn, setError, setUser } from '../../store/actions';
 import { useStylesLogin } from '../../styles/styles';
+import PrimaryButton from '../../ui/atoms/button/primapyButton';
 
 const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 

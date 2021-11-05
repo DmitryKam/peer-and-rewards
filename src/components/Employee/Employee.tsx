@@ -1,16 +1,14 @@
 import React, { useEffect } from 'react';
 
-import { Avatar } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { addEmployee } from '../../store/actions';
 import { AppRootStateType } from '../../store/store';
-import { avatarSize, useStylesEmployee } from '../../styles/styles';
+import { UserContainer } from '../../ui/organisms/userContainer';
 import { Login } from '../Login/Login';
 
 export const Employee: React.FC = () => {
   const dispatch = useDispatch();
-  const classes = useStylesEmployee();
   const employees = useSelector((state: AppRootStateType) => state.app.employees);
   const user = useSelector((state: AppRootStateType) => state.auth.user);
 
@@ -27,30 +25,11 @@ export const Employee: React.FC = () => {
   }
 
   return (
-    <div className={classes.employeeContainer}>
-      <div className={classes.avatarContainer}>
-        <Avatar
-          className={classes.avatar}
-          alt={currentEmployee.name}
-          sx={avatarSize}
-          src={currentEmployee.avatar}
-        />
-        <div data-testid={'employeeName'}>{currentEmployee.name}</div>
-      </div>
-      <div className={classes.infoContainer}>
-        <div className={classes.rewardsContainer}>
-          <div className={classes.textPosition}>My Rewards</div>
-          <div data-testid={'myReward'} className={classes.moneyFontSize}>
-            ${currentEmployee.myReward}
-          </div>
-        </div>
-        <div className={classes.cashContainer}>
-          <div className={classes.textPosition}>Give</div>
-          <div data-testid={'give'} className={classes.moneyFontSize}>
-            ${currentEmployee.give}
-          </div>
-        </div>
-      </div>
-    </div>
+    <UserContainer
+      currentUserAvatar={currentEmployee.avatar}
+      currentUserGive={currentEmployee.give}
+      currentUserName={currentEmployee.name}
+      currentUserRewards={currentEmployee.myReward}
+    />
   );
 };

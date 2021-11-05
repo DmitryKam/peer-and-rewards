@@ -1,22 +1,18 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback } from 'react';
 
 import { useDispatch } from 'react-redux';
 
 import { Employee } from './components/Employee/Employee';
 import { ErrorSnackBar } from './components/ErrorSnackBar/ErrorSnackBar';
 import { FeelAndRewardsContainer } from './components/FeelAndRewards/FeelAndRewardsContainer';
-import { HeaderBar } from './components/HeaderBar/HeaderBar';
 import { Layout } from './components/Layout/Layout';
 import { resetError } from './store/actions';
 import { useStylesApp } from './styles/styles';
+import HeaderBar from './ui/organisms/headerBar';
 
 export const App: React.FC = () => {
   const dispatch = useDispatch();
   const classes = useStylesApp();
-
-  useEffect(() => {
-    document.title = 'Peer Rewards';
-  }, []);
 
   const closeError = useCallback(
     (event?: React.SyntheticEvent, reason?: string) => {

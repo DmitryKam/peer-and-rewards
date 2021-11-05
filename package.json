@@ -81,6 +81,7 @@
     "eslint-plugin-react-hooks": "^4.2.0",
     "eslint-plugin-simple-import-sort": "^7.0.0",
     "gh-pages": "^3.2.3",
+    "jest-puppeteer": "^6.0.0",
     "prettier": "^2.4.1"
   }
 }

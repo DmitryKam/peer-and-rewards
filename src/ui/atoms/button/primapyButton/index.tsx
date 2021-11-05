@@ -37,6 +37,8 @@ const PrimaryButtonRoot = styled('button')(`
   }
 `);
 
-export const PrimaryButton: React.FC<ButtonUnstyledProps> = (props) => {
+const PrimaryButton: React.FC<ButtonUnstyledProps> = (props) => {
   return <ButtonUnstyled {...props} component={PrimaryButtonRoot} />;
 };
+
+export default PrimaryButton;

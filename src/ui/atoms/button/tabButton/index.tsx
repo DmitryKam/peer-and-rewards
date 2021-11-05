@@ -2,35 +2,8 @@ import React from 'react';
 
 import { styled } from '@mui/material/styles';
 import Tab from '@mui/material/Tab';
-import Tabs from '@mui/material/Tabs';
 
-type StyledTabsProps = {
-  children?: React.ReactNode;
-  value: number;
-  onChange: (event: React.SyntheticEvent, newValue: number) => void;
-};
-
-export const StyledTabs = styled((props: StyledTabsProps) => (
-  <Tabs {...props} TabIndicatorProps={{ children: <span className="MuiTabs-indicatorSpan" /> }} />
-))({
-  marginLeft: 120,
-  '& .MuiTabs-indicator': {
-    display: 'flex',
-    justifyContent: 'center',
-    backgroundColor: '#911b91',
-  },
-  '& .MuiTabs-indicatorSpan': {
-    maxWidth: 40,
-    width: '100%',
-  },
-  '@media (max-width: 580px)': {
-    marginLeft: 20,
-  },
-});
-
-type StyledTabProps = {
-  label: string;
-};
+import { StyledTabProps } from './types';
 
 export const StyledTab = styled((props: StyledTabProps) => <Tab disableRipple {...props} />)(
   ({ theme }) => ({

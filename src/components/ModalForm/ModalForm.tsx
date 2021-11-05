@@ -14,8 +14,8 @@ import Typography from '@mui/material/Typography';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
-import { PrimaryButton } from '../../common/Buttons/PrimaryButton';
 import { boxStyle, useStylesModalForm } from '../../styles/styles';
+import PrimaryButton from '../../ui/atoms/button/primapyButton';
 import { ErrorItem } from './ErrorItem/ErrorItem';
 
 type ModalFormPropsType = {

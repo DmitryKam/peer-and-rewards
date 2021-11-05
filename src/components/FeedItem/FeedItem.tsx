@@ -5,6 +5,9 @@ import Moment from 'react-moment';
 
 import { EmployeeType } from '../../store/types';
 import { avatarItemSize, useStylesFeedItem } from '../../styles/styles';
+import DateDisplay from '../../ui/atoms/dateDisplay';
+import FeedItemText from '../../ui/atoms/texts/feedItemText';
+import GratitudeItemText from '../../ui/atoms/texts/gratitudeItemText';
 
 type DataPropsType = {
   from: string;
@@ -28,19 +31,10 @@ export const FeedItem: React.FC<DataPropsType> = React.memo(
         <Avatar alt={employee.name} sx={avatarItemSize} src={employee.avatar} />
         <div className={classes.feedContainer}>
           <div className={classes.userContainer}>
-            <div>
-              {from} rewarded by {to}
-            </div>
-
-            <Tooltip title={date.toDateString()}>
-              <span className={classes.dateStyle}>
-                <Moment className={classes.dateMoment} fromNow>
-                  {date}
-                </Moment>
-              </span>
-            </Tooltip>
+            <FeedItemText from={from} to={to} />
+            <DateDisplay date={date} />
           </div>
-          <div className={classes.feedInfo}>{why}</div>
+          <GratitudeItemText why={why} />
         </div>
       </div>
     );

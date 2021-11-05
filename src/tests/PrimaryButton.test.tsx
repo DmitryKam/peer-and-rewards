@@ -2,11 +2,11 @@ import React from 'react';
 
 import { fireEvent, render } from '@testing-library/react';
 
-import { PrimaryButton } from '../common/Buttons/PrimaryButton';
+import { Index } from '../ui/atoms/button/primapyButton';
 
-test('PrimaryButton should be click', () => {
+test('Index should be click', () => {
   const clickHandler = jest.fn();
-  const { getByText } = render(<PrimaryButton onClick={clickHandler}>Click me</PrimaryButton>);
+  const { getByText } = render(<Index onClick={clickHandler}>Click me</Index>);
   const buttonEl = getByText(/Click me/i);
   fireEvent.click(buttonEl);
   expect(clickHandler).toHaveBeenCalledTimes(1);

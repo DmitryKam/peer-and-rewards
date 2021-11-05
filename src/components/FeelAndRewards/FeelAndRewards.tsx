@@ -1,15 +1,11 @@
 import React, { SyntheticEvent } from 'react';
 
-import AddIcon from '@mui/icons-material/Add';
-import Fab from '@mui/material/Fab';
-
-import { a11yProps } from '../../helpers/helpers';
 import { AppInitialStateType, EmployeeType, RewardsDataType } from '../../store/types';
-import { fabStyle, useStylesFellAndRewards } from '../../styles/styles';
+import { useStylesFellAndRewards } from '../../styles/styles';
+import TabsButtonAndIconContainer from '../../ui/organisms/tabsButtonAndIconContainer';
 import { FeedItem } from '../FeedItem/FeedItem';
 import { ModalForm } from '../ModalForm/ModalForm';
 import { TabPanel } from '../TabPanel/TabPanel';
-import { StyledTab, StyledTabs } from './Tabs/StyledTabs/StyledTabs';
 
 type FeelAndRewardsPropsType = {
   value: number;
@@ -38,25 +34,14 @@ export const FeelAndRewards: React.FC<FeelAndRewardsPropsType> = React.memo(
     handleChange,
   }) => {
     const classes = useStylesFellAndRewards();
+
     return (
       <div className={classes.root}>
-        <div className={classes.iconContainer}>
-          <div className={classes.iconPosition}>
-            <Fab size={'large'} style={fabStyle}>
-              <AddIcon
-                data-testid={'modalIcon'}
-                color={'inherit'}
-                fontSize={'large'}
-                onClick={handleOpen}
-              />
-            </Fab>
-          </div>
-        </div>
-        <StyledTabs value={value} onChange={handleChange} aria-label="feed">
-          <StyledTab label="Feed" {...a11yProps(0)} />
-          <StyledTab label="My Rewards" {...a11yProps(1)} />
-        </StyledTabs>
-        <hr />
+        <TabsButtonAndIconContainer
+          value={value}
+          handleOpen={handleOpen}
+          handleChange={handleChange}
+        />
         <div className={classes.itemContainer}>
           <TabPanel value={value} index={0}>
             {state.rewardsData.map((data, index) => {

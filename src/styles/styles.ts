@@ -6,19 +6,6 @@ export const useStylesApp = makeStyles({
 
 export const useStylesFellAndRewards = makeStyles({
   root: { marginTop: 40 },
-  iconContainer: {
-    position: 'relative',
-  },
-  iconPosition: {
-    position: 'absolute',
-    right: 90,
-    top: 27,
-    zIndex: 999,
-    '@media (max-width: 650px)': {
-      right: 5,
-      top: 60,
-    },
-  },
   input: {
     textAlign: 'center',
     color: 'red',
@@ -71,73 +58,8 @@ export const useStylesFeedItem = makeStyles({
   },
 });
 
-export const useStylesEmployee = makeStyles({
-  avatar: { margin: '0 20px 20px 20px' },
-  employeeContainer: {
-    display: 'flex',
-    marginTop: 50,
-    marginLeft: 100,
-    alignItems: 'center',
-    fontFamily: 'Circular Std,sans-serif',
-    fontSize: 18,
-    '@media (max-width: 580px)': {
-      marginLeft: 20,
-    },
-  },
-  avatarContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  infoContainer: {
-    display: 'flex',
-    '@media (max-width: 705px)': {
-      flexDirection: 'column',
-      justifyContent: 'center',
-    },
-  },
-  rewardsContainer: {
-    marginLeft: 80,
-    '@media (max-width: 705px)': {
-      marginLeft: 80,
-      marginBottom: 10,
-    },
-  },
-  moneyFontSize: {
-    fontSize: 24,
-    color: '#911b91',
-    '@media (max-width: 705px)': {
-      fontSize: 20,
-    },
-  },
-  cashContainer: {
-    marginLeft: 150,
-    '@media (max-width: 705px)': {
-      marginLeft: 80,
-    },
-  },
-  textPosition: { marginBottom: 10 },
-});
-
 export const useStylesLayout = makeStyles({
   root: { width: '85%', alignSelf: 'center' },
-});
-
-export const useStylesHeaderBar = makeStyles({
-  appBarContainer: { display: 'flex', alignItems: 'center' },
-  appBarText: {
-    color: '#000a34',
-    flexGrow: 1,
-    textAlign: 'justify',
-    fontWeight: 'bold',
-    fontSize: 26,
-    letterSpacing: 0.3,
-    fontFamily: 'Circular Std,sans-serif',
-    marginLeft: 20,
-    '@media (max-width: 580px)': {
-      fontSize: 16,
-    },
-  },
 });
 
 export const useStylesModalForm = makeStyles({
@@ -191,10 +113,6 @@ export const boxStyle = {
 } as never;
 
 export const fabStyle = { backgroundColor: '#f8f8f8', border: '2px solid #696969' };
-export const appBarColor = { backgroundColor: '#f5f5f5' };
-export const avatarSize = { width: 86, height: 86 };
+
 export const avatarItemSize = { width: 56, height: 56 };
 export const alertWidth = { width: '100%' };
-export const burgerMenuButtonColor = { color: '#911b91' };
-export const headerBarFlexGrow = { flexGrow: 1 };
-export const headerBarIconButton = { mr: 2 };

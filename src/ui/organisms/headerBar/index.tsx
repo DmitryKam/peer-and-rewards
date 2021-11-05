@@ -1,34 +1,31 @@
 import React from 'react';
 
-import MenuIcon from '@mui/icons-material/Menu';
-import { AppBar, Box, IconButton, Menu, MenuItem, Toolbar } from '@mui/material';
+import { AppBar, Box, Toolbar } from '@mui/material';
 import { GoogleLogout } from 'react-google-login';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { PrimaryButton } from '../../common/Buttons/PrimaryButton';
-import { deleteCurrentEmployee, logOut } from '../../store/actions';
-import { AppRootStateType } from '../../store/store';
-import {
-  appBarColor,
-  burgerMenuButtonColor,
-  headerBarFlexGrow,
-  headerBarIconButton,
-  useStylesHeaderBar,
-} from '../../styles/styles';
+import { Locales } from '../../../locales';
+import { deleteCurrentEmployee, logOut } from '../../../store/actions';
+import { AppRootStateType } from '../../../store/store';
+import PrimaryButton from '../../atoms/button/primapyButton';
+import BurgerMenuIcon from '../../atoms/icon/burgerMenuIcon';
+import HeaderText from '../../atoms/texts/headerText';
+import AppMenu from '../../molecules/appMenu';
+import { appBarColor, headerBarFlexGrow } from './styles';
 
 const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID as string;
 
-export const HeaderBar: React.FC = () => {
-  const classes = useStylesHeaderBar();
-  const dispatch = useDispatch();
+const HeaderBar: React.FC = () => {
   const auth = useSelector((state: AppRootStateType) => state.auth.auth.isAuth);
   const currentName = useSelector((state: AppRootStateType) => state.auth.user?.name);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
+  const dispatch = useDispatch();
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
+
   const handleClose = () => {
     setAnchorEl(null);
   };
@@ -47,30 +44,15 @@ export const HeaderBar: React.FC = () => {
     <Box sx={headerBarFlexGrow}>
       <AppBar position="static" style={appBarColor}>
         <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={headerBarIconButton}
-            onClick={handleClick}
-          >
-            <MenuIcon style={burgerMenuButtonColor} />
-          </IconButton>
-          <Menu
-            id="basic-menu"
+          <BurgerMenuIcon handleClick={handleClick} />
+          <AppMenu
             anchorEl={anchorEl}
             open={open}
-            onClose={handleClose}
-            MenuListProps={{
-              'aria-labelledby': 'basic-button',
-            }}
-          >
-            {auth && <MenuItem onClick={handleClose}>Profile</MenuItem>}
-            {auth && <MenuItem onClick={logoutMenu}>Logout</MenuItem>}
-            {!auth && <MenuItem onClick={() => {}}>Empty</MenuItem>}
-          </Menu>
-          <div className={classes.appBarText}>Peer and Rewards</div>
+            handleClose={handleClose}
+            logoutMenu={logoutMenu}
+            auth={auth}
+          />
+          <HeaderText text={Locales.PEER_AND_REWARDS} />
           {auth ? (
             <GoogleLogout
               onLogoutSuccess={onLogout}
@@ -85,3 +67,5 @@ export const HeaderBar: React.FC = () => {
     </Box>
   );
 };
+
+export default HeaderBar;
