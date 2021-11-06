@@ -2,10 +2,10 @@ import React, { useEffect } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 
-import { addEmployee } from '../../store/actions';
-import { AppRootStateType } from '../../store/store';
-import { UserContainer } from '../../ui/organisms/userContainer';
-import { Login } from '../Login/Login';
+import { Login } from '../../../components/Login/Login';
+import { addEmployee } from '../../../store/actions';
+import { AppRootStateType } from '../../../store/store';
+import { UserContainer } from '../userContainer';
 
 export const Employee: React.FC = () => {
   const dispatch = useDispatch();

@@ -3,12 +3,12 @@ import React from 'react';
 import { render } from '@testing-library/react';
 
 import '@testing-library/jest-dom/extend-expect';
-import { FeelAndRewards } from '../components/FeelAndRewards/FeelAndRewards';
+import { FeedAndRewards } from '../components/FeelAndRewards/FeedAndRewards';
 import { appFakeState } from '../store/fakeStore/fakeState';
 
 test('FeelAndRewards should render', () => {
   const { getByText, debug } = render(
-    <FeelAndRewards
+    <FeedAndRewards
       state={appFakeState}
       handleChange={jest.fn()}
       open={false}

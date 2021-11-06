@@ -2,8 +2,8 @@ import React from 'react';
 
 import '@testing-library/jest-dom/extend-expect';
 
-import { Employee } from '../components/Employee/Employee';
 import { renderWithRedux } from '../store/fakeStore/fakeStore';
+import { Employee } from '../ui/organisms/Employee/Employee';
 
 describe('Employee component', () => {
   it('should show employee data', () => {

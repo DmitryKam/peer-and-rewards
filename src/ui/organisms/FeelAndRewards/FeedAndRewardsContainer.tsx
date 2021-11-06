@@ -5,9 +5,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addReward, resetError, setError } from '../../store/actions';
 import { AppRootStateType } from '../../store/store';
 import { EmployeeType } from '../../store/types';
-import { FeelAndRewards } from './FeelAndRewards';
+import { FeedAndRewards } from './FeedAndRewards';
 
-export const FeelAndRewardsContainer = () => {
+export const FeedAndRewardsContainer = () => {
   const dispatch = useDispatch();
   const [value, setValue] = useState<number>(0);
   const [open, setOpen] = useState<boolean>(false);
@@ -60,16 +60,16 @@ export const FeelAndRewardsContainer = () => {
     [dispatch, state.employees, userName],
   );
 
-  const handleChange = (event: SyntheticEvent, newValue: number) => {
+  const handleChange = useCallback((event: SyntheticEvent, newValue: number) => {
     setValue(newValue);
-  };
+  }, []);
 
   if (!currentEmployee) {
     return <div>Something went wrong!</div>;
   }
 
   return (
-    <FeelAndRewards
+    <FeedAndRewards
       value={value}
       open={open}
       myRewards={myRewards}

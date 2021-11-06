@@ -2,10 +2,10 @@ import React, { SyntheticEvent } from 'react';
 
 import { AppInitialStateType, EmployeeType, RewardsDataType } from '../../store/types';
 import { useStylesFellAndRewards } from '../../styles/styles';
+import FeedItem from '../../ui/molecules/FeedItem';
+import { TabPanel } from '../../ui/molecules/TabPanel';
 import TabsButtonAndIconContainer from '../../ui/organisms/tabsButtonAndIconContainer';
-import { FeedItem } from '../FeedItem/FeedItem';
 import { ModalForm } from '../ModalForm/ModalForm';
-import { TabPanel } from '../TabPanel/TabPanel';
 
 type FeelAndRewardsPropsType = {
   value: number;
@@ -20,7 +20,7 @@ type FeelAndRewardsPropsType = {
   handleChange: (event: SyntheticEvent, newValue: number) => void;
 };
 
-export const FeelAndRewards: React.FC<FeelAndRewardsPropsType> = React.memo(
+export const FeedAndRewards: React.FC<FeelAndRewardsPropsType> = React.memo(
   ({
     open,
     value,
