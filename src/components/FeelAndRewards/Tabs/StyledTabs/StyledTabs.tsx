@@ -13,7 +13,6 @@ type StyledTabsProps = {
 export const StyledTabs = styled((props: StyledTabsProps) => (
   <Tabs {...props} TabIndicatorProps={{ children: <span className="MuiTabs-indicatorSpan" /> }} />
 ))({
-  marginLeft: 120,
   '& .MuiTabs-indicator': {
     display: 'flex',
     justifyContent: 'center',
@@ -22,9 +21,6 @@ export const StyledTabs = styled((props: StyledTabsProps) => (
   '& .MuiTabs-indicatorSpan': {
     maxWidth: 40,
     width: '100%',
-  },
-  '@media (max-width: 580px)': {
-    marginLeft: 20,
   },
 });
 
@@ -38,17 +34,15 @@ export const StyledTab = styled((props: StyledTabProps) => <Tab disableRipple {.
     fontWeight: 'bold',
     fontSize: theme.typography.pxToRem(15),
     marginRight: theme.spacing(1),
-    fontFamily: 'Circular Std,sans-serif',
     color: '#000a34',
-    backgroundColor: '#fff',
     border: '2px solid black',
-    borderRadius: 10,
+    borderRadius: 30,
     padding: '5px 20px 5px 20px',
     boxShadow: '0 4px 20px 0 rgba(61, 71, 82, 0.1), 0 0 0 0 rgba(0, 127, 255, 0)',
     marginBottom: 5,
-    width: 140,
+    width: 150,
     '&.Mui-selected': {
-      backgroundColor: '#ffc126',
+      backgroundColor: theme.palette.primary.main,
       color: '#000a34',
       transition: 'all 200ms ease',
       cursor: 'pointer',
@@ -56,6 +50,11 @@ export const StyledTab = styled((props: StyledTabProps) => <Tab disableRipple {.
     },
     '&.Mui-focusVisible': {
       backgroundColor: 'red',
+    },
+
+    [theme.breakpoints.down('mobile')]: {
+      fontSize: theme.typography.pxToRem(12),
+      width: 120,
     },
   }),
 );

@@ -15,8 +15,8 @@ export const useStylesFellAndRewards = makeStyles({
     top: 27,
     zIndex: 999,
     '@media (max-width: 650px)': {
-      right: 5,
-      top: 60,
+      right: -15,
+      top: -3,
     },
   },
   input: {

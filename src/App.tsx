@@ -14,10 +14,6 @@ export const App: React.FC = () => {
   const dispatch = useDispatch();
   const classes = useStylesApp();
 
-  useEffect(() => {
-    document.title = 'Peer Rewards';
-  }, []);
-
   const closeError = useCallback(
     (event?: React.SyntheticEvent, reason?: string) => {
       if (reason === 'clickaway') {

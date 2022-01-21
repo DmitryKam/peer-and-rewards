@@ -20,6 +20,8 @@ const PrimaryButtonRoot = styled('button')(`
   &:hover {
     background-color: #ffdb80;
   }
+  
+  
 
   &.${buttonUnstyledClasses.active} {
     background-color: #ffc126;
@@ -34,7 +36,7 @@ const PrimaryButtonRoot = styled('button')(`
     opacity: 0.5;
     cursor: not-allowed;
     box-shadow: 0 0 0 0 rgba(0, 127, 255, 0);
-  }
+  
 `);
 
 export const PrimaryButton: React.FC<ButtonUnstyledProps> = (props) => {

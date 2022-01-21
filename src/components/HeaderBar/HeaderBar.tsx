@@ -5,6 +5,7 @@ import { AppBar, Box, IconButton, Menu, MenuItem, Toolbar } from '@mui/material'
 import { GoogleLogout } from 'react-google-login';
 import { useDispatch, useSelector } from 'react-redux';
 
+import { Button } from '../../common/button/Button';
 import { PrimaryButton } from '../../common/Buttons/PrimaryButton';
 import { deleteCurrentEmployee, logOut } from '../../store/actions';
 import { AppRootStateType } from '../../store/store';
@@ -13,13 +14,13 @@ import {
   burgerMenuButtonColor,
   headerBarFlexGrow,
   headerBarIconButton,
-  useStylesHeaderBar,
 } from '../../styles/styles';
+import { useStyles } from './HeaderBar.styles';
 
 const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID as string;
 
 export const HeaderBar: React.FC = () => {
-  const classes = useStylesHeaderBar();
+  const classes = useStyles();
   const dispatch = useDispatch();
   const auth = useSelector((state: AppRootStateType) => state.auth.auth.isAuth);
   const currentName = useSelector((state: AppRootStateType) => state.auth.user?.name);
@@ -75,7 +76,8 @@ export const HeaderBar: React.FC = () => {
             <GoogleLogout
               onLogoutSuccess={onLogout}
               render={(renderProps) => {
-                return <PrimaryButton onClick={renderProps.onClick}>Logout</PrimaryButton>;
+                // return <PrimaryButton onClick={renderProps.onClick}>Logout</PrimaryButton>;
+                return <Button onClick={renderProps.onClick}>Logout</Button>;
               }}
               clientId={clientId}
             />
