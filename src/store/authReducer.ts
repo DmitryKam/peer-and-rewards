@@ -9,13 +9,14 @@ export const authReducer = (
     case AuthActionType.LOGIN: {
       return {
         ...state,
-        auth: { isAuth: true },
+        auth: { isAuth: true, checkAuth: false },
       };
     }
     case AuthActionType.LOGOUT: {
       return {
         ...state,
         auth: {
+          ...state.auth,
           isAuth: false,
         },
       };
@@ -36,6 +37,15 @@ export const authReducer = (
       return {
         ...state,
         user: null,
+      };
+    }
+    case AuthActionType.USER_AUTHENTICATED: {
+      return {
+        ...state,
+        auth: {
+          ...state.auth,
+          checkAuth: false,
+        },
       };
     }
   }

@@ -3,14 +3,22 @@ import { useCallback } from 'react';
 import { initializeApp } from 'firebase/app';
 import {
   getAuth,
+  GoogleAuthProvider,
+  onAuthStateChanged,
   signInWithPopup,
   signOut as firebaseSignOut,
-  GoogleAuthProvider,
 } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { deleteCurrentEmployee, logIn, logOut, setError, setUser } from '../store/actions';
+import {
+  deleteCurrentEmployee,
+  logIn,
+  logOut,
+  setError,
+  setUser,
+  userAuthenticated,
+} from '../store/actions';
 import { AppRootStateType } from '../store/store';
 
 const firebaseConfig = {
@@ -43,16 +51,12 @@ export const useFirebase = () => {
   const signIn = async () => {
     try {
       const result = await signInWithPopup(auth, provider);
-      const credential = GoogleAuthProvider.credentialFromResult(result);
-      const token = credential?.accessToken;
       const { displayName, email, photoURL } = result.user;
       dispatch(setUser(displayName || '', email || '', photoURL || ''));
       dispatch(logIn());
-
-      if (token) {
-        localStorage.setItem('accessToken', token);
-      }
+      dispatch(userAuthenticated());
     } catch (err) {
+      dispatch(userAuthenticated());
       getError('Login flied');
     }
   };
@@ -63,7 +67,6 @@ export const useFirebase = () => {
       dispatch(logOut());
       dispatch(deleteCurrentEmployee(currentName as string));
       console.info('logged out');
-      localStorage.clear();
     } catch (e) {
       getError('Login flied');
     }
@@ -71,8 +74,18 @@ export const useFirebase = () => {
 
   const isAuth = () => {
     try {
-      // TODO: stay sign in
-    } catch (e) {}
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          const { displayName, email, photoURL } = user;
+          dispatch(setUser(displayName || '', email || '', photoURL || ''));
+          dispatch(logIn());
+        }
+        dispatch(userAuthenticated());
+      });
+    } catch (e) {
+      dispatch(userAuthenticated());
+      console.info('no user');
+    }
   };
 
   return {

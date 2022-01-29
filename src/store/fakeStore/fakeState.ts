@@ -75,6 +75,7 @@ export const appFakeState: AppInitialStateType = {
 export const authFakeState: AuthInitialStateType = {
   auth: {
     isAuth: false,
+    checkAuth: true,
   },
   user: {
     name: 'Fake User',

@@ -64,6 +64,7 @@ export const appInitialState: AppInitialStateType = {
 export const authInitialState: AuthInitialStateType = {
   auth: {
     isAuth: false,
+    checkAuth: true,
   },
   user: null,
 };

@@ -8,6 +8,7 @@ import {
   resetError,
   setError,
   setUser,
+  userAuthenticated,
 } from './actions';
 
 export enum AppActionType {
@@ -23,6 +24,7 @@ export enum AuthActionType {
   LOGOUT = 'LOGOUT',
   SET_USER = 'SET_USER',
   DELETE_USER = 'DELETE_USER',
+  USER_AUTHENTICATED = 'USER_AUTHENTICATED',
 }
 
 export type EmployeeType = {
@@ -41,6 +43,7 @@ export type RewardsDataType = {
 
 type AuthType = {
   isAuth: boolean;
+  checkAuth: boolean;
 };
 
 type UserType = {
@@ -73,4 +76,5 @@ export type AuthActionTypes =
   | ReturnType<typeof logIn>
   | ReturnType<typeof logOut>
   | ReturnType<typeof setUser>
-  | ReturnType<typeof deleteUser>;
+  | ReturnType<typeof deleteUser>
+  | ReturnType<typeof userAuthenticated>;

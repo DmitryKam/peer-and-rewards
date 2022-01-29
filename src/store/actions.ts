@@ -53,6 +53,11 @@ export const logOut = () =>
     type: AuthActionType.LOGOUT,
   } as const);
 
+export const userAuthenticated = () =>
+  ({
+    type: AuthActionType.USER_AUTHENTICATED,
+  } as const);
+
 export const setUser = (name: string, email: string, imageUrl: string) =>
   ({
     type: AuthActionType.SET_USER,
