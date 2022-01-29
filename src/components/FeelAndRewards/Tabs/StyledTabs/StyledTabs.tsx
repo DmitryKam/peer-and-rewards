@@ -4,11 +4,7 @@ import { styled } from '@mui/material/styles';
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
 
-type StyledTabsProps = {
-  children?: React.ReactNode;
-  value: number;
-  onChange: (event: React.SyntheticEvent, newValue: number) => void;
-};
+import { StyledTabsProps } from './types';
 
 export const StyledTabs = styled((props: StyledTabsProps) => (
   <Tabs {...props} TabIndicatorProps={{ children: <span className="MuiTabs-indicatorSpan" /> }} />

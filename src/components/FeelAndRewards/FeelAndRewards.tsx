@@ -1,28 +1,16 @@
-import React, { SyntheticEvent } from 'react';
+import React from 'react';
 
 import AddIcon from '@mui/icons-material/Add';
 import Fab from '@mui/material/Fab';
 
 import { a11yProps } from '../../helpers/helpers';
-import { AppInitialStateType, EmployeeType, RewardsDataType } from '../../store/types';
-import { fabStyle, useStylesFellAndRewards } from '../../styles/styles';
+import { fabStyle } from '../../styles/styles';
 import { FeedItem } from '../FeedItem/FeedItem';
 import { ModalForm } from '../ModalForm/ModalForm';
 import { TabPanel } from '../TabPanel/TabPanel';
+import { useStyles } from './FeelAndRewards.styles';
 import { StyledTab, StyledTabs } from './Tabs/StyledTabs/StyledTabs';
-
-type FeelAndRewardsPropsType = {
-  value: number;
-  open: boolean;
-  state: AppInitialStateType;
-  addRewardToEmployee: (to: string, amount: number, why: string) => void;
-  myRewards: Array<RewardsDataType>;
-  autocompleteData: string[];
-  currentEmployee: EmployeeType;
-  handleOpen: () => void;
-  handleClose: () => void;
-  handleChange: (event: SyntheticEvent, newValue: number) => void;
-};
+import { FeelAndRewardsPropsType } from './types';
 
 export const FeelAndRewards: React.FC<FeelAndRewardsPropsType> = React.memo(
   ({
@@ -37,7 +25,8 @@ export const FeelAndRewards: React.FC<FeelAndRewardsPropsType> = React.memo(
     handleClose,
     handleChange,
   }) => {
-    const classes = useStylesFellAndRewards();
+    const classes = useStyles();
+
     return (
       <div className={classes.root}>
         <div className={classes.iconContainer}>

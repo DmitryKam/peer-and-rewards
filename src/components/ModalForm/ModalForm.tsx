@@ -15,16 +15,10 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
 import { PrimaryButton } from '../../common/Buttons/PrimaryButton';
-import { boxStyle, useStylesModalForm } from '../../styles/styles';
+import { boxStyle } from '../../styles/styles';
 import { ErrorItem } from './ErrorItem/ErrorItem';
-
-type ModalFormPropsType = {
-  open: boolean;
-  handleClose: () => void;
-  addRewardToEmployee: (to: string, amount: number, why: string) => void;
-  autocompleteData: string[];
-  amount: number;
-};
+import { useStyles } from './ModalForm.styles';
+import { ModalFormPropsType } from './types';
 
 const validationSchema = (validationString: string[]) => {
   return Yup.object().shape({
@@ -36,7 +30,7 @@ const validationSchema = (validationString: string[]) => {
 
 export const ModalForm: React.FC<ModalFormPropsType> = React.memo(
   ({ open, handleClose, addRewardToEmployee, autocompleteData, amount }) => {
-    const classes = useStylesModalForm();
+    const classes = useStyles();
     const formik = useFormik({
       initialValues: {
         toEmployee: '',

@@ -5,12 +5,13 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { addEmployee } from '../../store/actions';
 import { AppRootStateType } from '../../store/store';
-import { avatarSize, useStylesEmployee } from '../../styles/styles';
+import { avatarSize } from '../../styles/styles';
 import { Login } from '../Login/Login';
+import { useStyles } from './Employee.styles';
 
 export const Employee: React.FC = () => {
   const dispatch = useDispatch();
-  const classes = useStylesEmployee();
+  const classes = useStyles();
   const employees = useSelector((state: AppRootStateType) => state.app.employees);
   const user = useSelector((state: AppRootStateType) => state.auth.user);
 

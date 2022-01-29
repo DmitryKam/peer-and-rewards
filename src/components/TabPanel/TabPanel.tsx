@@ -2,15 +2,12 @@ import React from 'react';
 
 import Typography from '@mui/material/Typography';
 
-import { useStylesTabPanel } from '../../styles/styles';
-
-type TabPanelPropsType = {
-  value: number;
-  index: number;
-};
+import { useStyles } from './TabPanel.styles';
+import { TabPanelPropsType } from './types';
 
 export const TabPanel: React.FC<TabPanelPropsType> = React.memo(({ children, value, index }) => {
-  const classes = useStylesTabPanel();
+  const classes = useStyles();
+
   return (
     <Typography
       className={classes.root}

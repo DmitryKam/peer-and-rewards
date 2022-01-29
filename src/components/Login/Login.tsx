@@ -1,28 +1,36 @@
 import React, { useCallback } from 'react';
 
 import { Paper } from '@mui/material';
-import GoogleLogin, { GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
 import { useDispatch } from 'react-redux';
 
 import { PrimaryButton } from '../../common/Buttons/PrimaryButton';
+import { firebase } from '../../firebase/firebase';
 import { logIn, setError, setUser } from '../../store/actions';
-import { useStylesLogin } from '../../styles/styles';
-
-const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
+import { useStyles } from './Login.styles';
 
 export const Login: React.FC = () => {
   const dispatch = useDispatch();
-  const classes = useStylesLogin();
+  const classes = useStyles();
 
-  const successLogin = useCallback(
-    (res: GoogleLoginResponse | GoogleLoginResponseOffline) => {
-      if ('profileObj' in res) {
-        dispatch(setUser(res.profileObj.name, res.profileObj.email, res.profileObj.imageUrl));
-        dispatch(logIn());
-      }
-    },
-    [dispatch],
-  );
+  const signIn = async () => {
+    const googleProvider = new firebase.auth.GoogleAuthProvider();
+
+    try {
+      await firebase.auth().signInWithPopup(googleProvider);
+      firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+          const { displayName, email, photoURL } = user;
+
+          if (displayName && email && photoURL) {
+            dispatch(setUser(displayName, email, photoURL));
+            dispatch(logIn());
+          }
+        }
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   const getError = useCallback(
     (error: string) => {
@@ -30,10 +38,6 @@ export const Login: React.FC = () => {
     },
     [dispatch],
   );
-
-  const onFailLogin = (res: { details: string; error: string }) => {
-    getError(res.details);
-  };
 
   return (
     <div className={classes.root}>
@@ -43,17 +47,7 @@ export const Login: React.FC = () => {
           login.
         </div>
         <div className={classes.buttonContainer}>
-          <GoogleLogin
-            clientId={clientId as string}
-            buttonText={'login'}
-            onSuccess={successLogin}
-            onFailure={onFailLogin}
-            cookiePolicy={'single_host_origin'}
-            isSignedIn={false}
-            render={(renderProps) => {
-              return <PrimaryButton onClick={renderProps.onClick}>Sign In</PrimaryButton>;
-            }}
-          />
+          <PrimaryButton onClick={signIn}>Sign n with firebase</PrimaryButton>
         </div>
       </Paper>
     </div>

@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { useStylesErrorItem } from '../../../styles/styles';
+import { useStyles } from './ErrorItem.styles';
 
 export const ErrorItem: React.FC = ({ children }) => {
-  const classes = useStylesErrorItem();
+  const classes = useStyles();
   return <div className={classes.root}>{children}</div>;
 };

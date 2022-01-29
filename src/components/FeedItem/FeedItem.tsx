@@ -3,20 +3,13 @@ import React from 'react';
 import { Avatar, Tooltip } from '@mui/material';
 import Moment from 'react-moment';
 
-import { EmployeeType } from '../../store/types';
-import { avatarItemSize, useStylesFeedItem } from '../../styles/styles';
-
-type DataPropsType = {
-  from: string;
-  to: string;
-  why: string;
-  date: Date;
-  employees: Array<EmployeeType>;
-};
+import { avatarItemSize } from '../../styles/styles';
+import { useStyles } from './FeelItem.styles';
+import { DataPropsType } from './types';
 
 export const FeedItem: React.FC<DataPropsType> = React.memo(
   ({ from, to, why, date, employees }) => {
-    const classes = useStylesFeedItem();
+    const classes = useStyles();
 
     const employee = employees.find((empl) => empl.name === from);
     if (!employee) {
