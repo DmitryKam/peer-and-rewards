@@ -21,7 +21,6 @@
 #
 .idea
 .yarn.lock
-.env
 .gitignore
 
 npm-debug.log*
