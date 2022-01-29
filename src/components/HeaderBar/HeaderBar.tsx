@@ -2,11 +2,10 @@ import React from 'react';
 
 import MenuIcon from '@mui/icons-material/Menu';
 import { AppBar, Box, IconButton, Menu, MenuItem, Toolbar } from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import { PrimaryButton } from '../../common/Buttons/PrimaryButton';
-import { firebase } from '../../firebase/firebase';
-import { deleteCurrentEmployee, logOut } from '../../store/actions';
+import { useFirebase } from '../../firebase/firebase';
 import { AppRootStateType } from '../../store/store';
 import {
   appBarColor,
@@ -17,10 +16,9 @@ import {
 import { useStyles } from './HeaderBar.styles';
 
 export const HeaderBar: React.FC = () => {
+  const { signOut } = useFirebase();
   const classes = useStyles();
-  const dispatch = useDispatch();
   const auth = useSelector((state: AppRootStateType) => state.auth.auth.isAuth);
-  const currentName = useSelector((state: AppRootStateType) => state.auth.user?.name);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
@@ -29,16 +27,6 @@ export const HeaderBar: React.FC = () => {
   };
   const handleClose = () => {
     setAnchorEl(null);
-  };
-
-  const signOut = async () => {
-    try {
-      await firebase.auth().signOut();
-      dispatch(logOut());
-      dispatch(deleteCurrentEmployee(currentName as string));
-    } catch (e) {
-      console.log(e);
-    }
   };
 
   const logoutMenu = () => {
