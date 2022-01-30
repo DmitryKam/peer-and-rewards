@@ -17,11 +17,11 @@ export const StyledTabs = (props: StyledTabsProps) => {
 
 export const StyledTab = styled((props: StyledTabProps) => <Tab disableRipple {...props} />)(
   ({ theme }) => ({
-    textTransform: 'none',
-    fontWeight: 'bold',
-    fontSize: theme.typography.pxToRem(15),
+    textTransform: 'uppercase',
+    fontWeight: 500,
+    fontSize: theme.typography.pxToRem(14),
     marginRight: theme.spacing(1),
-    color: theme.palette.primary.dark,
+    color: theme.palette.text.primary,
     border: `2px solid ${theme.palette.primary.main}`,
     borderRadius: 30,
     padding: '5px 20px 5px 20px',
@@ -30,13 +30,13 @@ export const StyledTab = styled((props: StyledTabProps) => <Tab disableRipple {.
     width: 150,
     '&.Mui-selected': {
       backgroundColor: theme.palette.primary.main,
-      color: '#000a34',
+      color: theme.palette.primary.light,
       transition: 'all 200ms ease',
       cursor: 'pointer',
       border: 'none',
     },
     '&.Mui-focusVisible': {
-      backgroundColor: 'red',
+      backgroundColor: `${theme.palette.primary.main}`,
     },
 
     [theme.breakpoints.down('sm')]: {

@@ -10,7 +10,10 @@ export const Button = ({ className = '', children = '', onClick, ...props }: But
     <MuiButton
       variant="contained"
       color="primary"
-      className={classes.root}
+      className={clsx({
+        [classes.root]: true,
+        [className]: true,
+      })}
       onClick={onClick}
       {...props}
     >

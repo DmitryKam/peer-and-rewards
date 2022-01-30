@@ -6,9 +6,9 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 
 import App from './App';
-import { ThemeProvider } from './contexts/ThemeContextProvider';
 import reportWebVitals from './reportWebVitals';
 import { store } from './store/store';
+import { ThemeProvider } from './themeConfig/ThemeProvider';
 
 ReactDOM.render(
   <React.StrictMode>
