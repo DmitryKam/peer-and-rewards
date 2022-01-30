@@ -1,13 +1,13 @@
 import {
-  addEmployee,
-  addReward,
   deleteCurrentEmployee,
   deleteUser,
+  getRewards,
   logIn,
   logOut,
   resetError,
   setError,
   setUser,
+  updateUser,
   userAuthenticated,
 } from './actions';
 
@@ -15,8 +15,8 @@ export enum AppActionType {
   ADD_REWARDS = 'ADD_REWARDS',
   SET_ERROR = 'SET_ERROR',
   RESET_ERROR = 'RESET_ERROR',
-  ADD_EMPLOYEE = 'ADD_EMPLOYEE',
   DELETE_EMPLOYEE = 'DELETE_EMPLOYEE',
+  GET_REWARDS = 'GET_REWARDS',
 }
 
 export enum AuthActionType {
@@ -24,21 +24,17 @@ export enum AuthActionType {
   LOGOUT = 'LOGOUT',
   SET_USER = 'SET_USER',
   DELETE_USER = 'DELETE_USER',
+  UPDATE_USER = 'UPDATE_USER',
   USER_AUTHENTICATED = 'USER_AUTHENTICATED',
 }
-
-export type EmployeeType = {
-  name: string;
-  myReward: number;
-  give: number;
-  avatar: string;
-};
 
 export type RewardsDataType = {
   from: string;
   to: string;
   why: string;
-  date: Date;
+  date: string;
+  id: string;
+  amount: number;
 };
 
 type AuthType = {
@@ -46,16 +42,16 @@ type AuthType = {
   checkAuth: boolean;
 };
 
-type UserType = {
+export type UserType = {
   name: string;
   email: string;
   imageUrl: string;
   myRewards: number;
   give: number;
+  id: string;
 };
 
 export type AppInitialStateType = {
-  employees: Array<EmployeeType>;
   rewardsData: Array<RewardsDataType>;
   errors: string | null;
 };
@@ -65,16 +61,14 @@ export type AuthInitialStateType = {
   user: UserType | null;
 };
 
-export type AppActionTypes =
-  | ReturnType<typeof addReward>
-  | ReturnType<typeof setError>
-  | ReturnType<typeof resetError>
-  | ReturnType<typeof addEmployee>
-  | ReturnType<typeof deleteCurrentEmployee>;
-
-export type AuthActionTypes =
+export type ActionsTypes =
   | ReturnType<typeof logIn>
   | ReturnType<typeof logOut>
   | ReturnType<typeof setUser>
   | ReturnType<typeof deleteUser>
-  | ReturnType<typeof userAuthenticated>;
+  | ReturnType<typeof userAuthenticated>
+  | ReturnType<typeof setError>
+  | ReturnType<typeof resetError>
+  | ReturnType<typeof deleteCurrentEmployee>
+  | ReturnType<typeof getRewards>
+  | ReturnType<typeof updateUser>;

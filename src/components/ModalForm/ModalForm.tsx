@@ -11,32 +11,18 @@ import {
 } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import { useFormik } from 'formik';
-import * as Yup from 'yup';
 
 import { Button } from '../../common/button/Button';
 import { TextField } from '../../common/textField/TextField';
 import { boxStyle } from '../../styles/styles';
+import { validationSchema } from '../../validation/rewardsValidation';
 import { ErrorItem } from './ErrorItem/ErrorItem';
 import { useStyles } from './ModalForm.styles';
 import { ModalFormPropsType } from './types';
 
-const validationSchema = (validationString: string[]) => {
-  return Yup.object().shape({
-    toEmployee: Yup.string().required('Enter name').oneOf(validationString),
-    amount: Yup.number()
-      .required()
-      .min(1, 'Minimum amount of currency 1 $')
-      .required('Enter amount'),
-    why: Yup.string()
-      .required()
-      .min(2, 'The minimum number of characters is 3!')
-      .required('Write text'),
-  });
-};
-
 const initialFormValues = {
   toEmployee: '',
-  amount: null,
+  amount: '',
   why: '',
 };
 
@@ -50,20 +36,14 @@ export const ModalForm: React.FC<ModalFormPropsType> = React.memo(
   ({ open, handleClose, addRewardToEmployee, autocompleteData, amount }) => {
     const classes = useStyles();
     const formik = useFormik({
-      initialValues: {
-        toEmployee: '',
-        amount: '',
-        why: '',
-      },
+      initialValues: initialFormValues,
       validationSchema: validationSchema(autocompleteData),
       onSubmit: (values) => {
         addRewardToEmployee(values.toEmployee, +values.amount, values.why);
         if (amount < +values.amount) {
           return;
         }
-        values.toEmployee = '';
-        values.amount = '';
-        values.why = '';
+        formik.resetForm();
         handleClose();
       },
     });

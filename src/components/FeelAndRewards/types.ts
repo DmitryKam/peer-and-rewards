@@ -1,15 +1,15 @@
 import { SyntheticEvent } from 'react';
 
-import { AppInitialStateType, EmployeeType, RewardsDataType } from '../../store/types';
+import { RewardsDataType, UserType } from '../../store/types';
 
 export type FeelAndRewardsPropsType = {
   value: number;
   open: boolean;
-  state: AppInitialStateType;
+  rewardsData: RewardsDataType[];
   addRewardToEmployee: (to: string, amount: number, why: string) => void;
   myRewards: Array<RewardsDataType>;
   autocompleteData: string[];
-  currentEmployee: EmployeeType;
+  user: UserType;
   handleOpen: () => void;
   handleClose: () => void;
   handleChange: (event: SyntheticEvent, newValue: number) => void;

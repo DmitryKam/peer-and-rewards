@@ -1,24 +1,15 @@
 import { appInitialState } from './state';
-import { AppActionType, AppActionTypes, AppInitialStateType } from './types';
+import { ActionsTypes, AppActionType, AppInitialStateType } from './types';
 
 export const appReducer = (
   state: AppInitialStateType = appInitialState,
-  action: AppActionTypes,
+  action: ActionsTypes,
 ): AppInitialStateType => {
   switch (action.type) {
-    case AppActionType.ADD_REWARDS: {
+    case AppActionType.GET_REWARDS: {
       return {
         ...state,
-        employees: [...action.payload.employee],
-        rewardsData: [
-          {
-            from: action.payload.from,
-            to: action.payload.to,
-            why: action.payload.why,
-            date: new Date(),
-          },
-          ...state.rewardsData,
-        ],
+        rewardsData: action.payload.rewards,
       };
     }
     case AppActionType.SET_ERROR: {
@@ -31,21 +22,6 @@ export const appReducer = (
       return {
         ...state,
         errors: null,
-      };
-    }
-    case AppActionType.ADD_EMPLOYEE: {
-      return {
-        ...state,
-        employees: [
-          ...state.employees,
-          { name: action.payload.name, myReward: 250, give: 0, avatar: action.payload.avatar },
-        ],
-      };
-    }
-    case AppActionType.DELETE_EMPLOYEE: {
-      return {
-        ...state,
-        employees: state.employees.filter((employee) => employee.name !== action.payload.name),
       };
     }
   }

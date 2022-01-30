@@ -1,16 +1,6 @@
-import { AppActionType, AuthActionType, EmployeeType } from './types';
+import { AppActionType, AuthActionType, RewardsDataType } from './types';
 
 // app action
-export const addReward = (employee: Array<EmployeeType>, from: string, to: string, why: string) =>
-  ({
-    type: AppActionType.ADD_REWARDS,
-    payload: {
-      employee,
-      from,
-      to,
-      why,
-    },
-  } as const);
 
 export const setError = (error: string) =>
   ({
@@ -23,15 +13,6 @@ export const setError = (error: string) =>
 export const resetError = () =>
   ({
     type: AppActionType.RESET_ERROR,
-  } as const);
-
-export const addEmployee = (name: string, avatar: string) =>
-  ({
-    type: AppActionType.ADD_EMPLOYEE,
-    payload: {
-      name,
-      avatar,
-    },
   } as const);
 
 export const deleteCurrentEmployee = (name: string) =>
@@ -58,13 +39,29 @@ export const userAuthenticated = () =>
     type: AuthActionType.USER_AUTHENTICATED,
   } as const);
 
-export const setUser = (name: string, email: string, imageUrl: string) =>
+export const setUser = (
+  name: string,
+  email: string,
+  imageUrl: string,
+  id: string,
+  give: number,
+  myRewards: number,
+) =>
   ({
     type: AuthActionType.SET_USER,
-    payload: { name, email, imageUrl },
+    payload: { name, email, imageUrl, id, give, myRewards },
   } as const);
 
 export const deleteUser = () =>
   ({
     type: AuthActionType.DELETE_USER,
   } as const);
+
+export const getRewards = (rewards: RewardsDataType[]) =>
+  ({
+    type: AppActionType.GET_REWARDS,
+    payload: { rewards },
+  } as const);
+
+export const updateUser = (give: number, myRewards: number) =>
+  ({ type: AuthActionType.UPDATE_USER, payload: { give, myRewards } } as const);

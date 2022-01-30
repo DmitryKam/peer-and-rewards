@@ -1,29 +1,32 @@
-import React, { SyntheticEvent, useCallback, useState } from 'react';
+import React, { SyntheticEvent, useCallback, useEffect, useMemo, useState } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 
-import { addReward, resetError, setError } from '../../store/actions';
+import { resetError } from '../../store/actions';
 import { AppRootStateType } from '../../store/store';
-import { EmployeeType } from '../../store/types';
+import { fetchRewards, setReward } from '../../store/thunks';
+import { getUsersNamesUtils } from '../../utils/getUsersNamesUtils';
 import { FeelAndRewards } from './FeelAndRewards';
 
 export const FeelAndRewardsContainer = () => {
   const dispatch = useDispatch();
   const [value, setValue] = useState<number>(0);
   const [open, setOpen] = useState<boolean>(false);
-  const userName = useSelector((state: AppRootStateType) => state.auth.user?.name);
-  const state = useSelector((st: AppRootStateType) => st.app);
-  const currentEmployee = state.employees.find((employee) => employee.name === userName);
-  const myRewards = state.rewardsData.filter((rewardItem) => rewardItem.from === userName);
+  const user = useSelector((state: AppRootStateType) => state.auth.user);
+  const { rewardsData } = useSelector((state: AppRootStateType) => state.app);
+  const myRewards = rewardsData.filter((rewardItem) => rewardItem.from === user?.name);
 
-  const autocompleteData: Array<string> = [];
+  useEffect(() => {
+    dispatch(fetchRewards());
+  }, [dispatch]);
 
-  state.employees.map((e) => {
-    if (e.name === userName) {
-      return;
+  const autocompleteData = useMemo(() => {
+    if (user) {
+      return getUsersNamesUtils(rewardsData, user);
     }
-    return autocompleteData.push(e.name);
-  });
+
+    return [];
+  }, [rewardsData, user]);
 
   const handleOpen = () => setOpen(true);
 
@@ -32,39 +35,16 @@ export const FeelAndRewardsContainer = () => {
   const addRewardToEmployee = useCallback(
     (to: string, amount: number, why: string) => {
       dispatch(resetError());
-      const fromEmployee = state.employees.find((e) => e.name === userName);
-      const toEmployee = state.employees.find((e) => e.name === to);
-      const newEmployeeState: Array<EmployeeType> = [];
-      state.employees.filter((el) => {
-        if (el.name === userName) {
-          return;
-        }
-        if (el.name === to) {
-          return;
-        }
-        newEmployeeState.push(el);
-      });
-
-      if (fromEmployee && toEmployee && newEmployeeState && userName) {
-        if (fromEmployee.myReward < amount) {
-          return dispatch(setError('You have exceeded your balance'));
-        }
-        fromEmployee.myReward = fromEmployee.myReward - amount;
-        fromEmployee.give = fromEmployee.give + amount;
-        toEmployee.myReward = toEmployee.myReward + amount;
-
-        const EmployeeArray = [...newEmployeeState, fromEmployee, toEmployee];
-        return dispatch(addReward(EmployeeArray, userName, to, why));
-      }
+      dispatch(setReward(to, amount, why, handleClose));
     },
-    [dispatch, state.employees, userName],
+    [dispatch],
   );
 
   const handleChange = (event: SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
 
-  if (!currentEmployee) {
+  if (!user) {
     return <div>Something went wrong!</div>;
   }
 
@@ -76,8 +56,8 @@ export const FeelAndRewardsContainer = () => {
       addRewardToEmployee={addRewardToEmployee}
       autocompleteData={autocompleteData}
       handleClose={handleClose}
-      state={state}
-      currentEmployee={currentEmployee}
+      rewardsData={rewardsData}
+      user={user}
       handleChange={handleChange}
       handleOpen={handleOpen}
     />

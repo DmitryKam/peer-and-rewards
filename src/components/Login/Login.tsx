@@ -18,7 +18,7 @@ export const Login: React.FC = () => {
           login.
         </div>
         <div className={classes.buttonContainer}>
-          <Button onClick={signIn}>Sign n with firebase</Button>
+          <Button onClick={signIn}>Sign In</Button>
         </div>
       </Paper>
     </div>

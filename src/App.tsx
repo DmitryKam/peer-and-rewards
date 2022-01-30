@@ -2,11 +2,11 @@ import React, { useCallback } from 'react';
 
 import { useDispatch } from 'react-redux';
 
-import { Employee } from './components/Employee/Employee';
 import { ErrorSnackBar } from './components/ErrorSnackBar/ErrorSnackBar';
 import { FeelAndRewardsContainer } from './components/FeelAndRewards/FeelAndRewardsContainer';
 import { HeaderBar } from './components/HeaderBar/HeaderBar';
 import { Layout } from './components/Layout/Layout';
+import { UserInfo } from './components/UserInfo/UserInfo';
 import { resetError } from './store/actions';
 import { useStylesApp } from './styles/styles';
 
@@ -28,7 +28,7 @@ export const App: React.FC = () => {
     <div className={classes.root}>
       <HeaderBar />
       <Layout>
-        <Employee />
+        <UserInfo />
         <FeelAndRewardsContainer />
       </Layout>
       <ErrorSnackBar handleClose={closeError} />

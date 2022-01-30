@@ -16,7 +16,7 @@ test('FeelAndRewards should render', () => {
       handleOpen={jest.fn()}
       handleClose={jest.fn()}
       addRewardToEmployee={jest.fn()}
-      currentEmployee={appFakeState.employees[0]}
+      user={appFakeState.employees[0]}
       autocompleteData={['One,Two']}
       myRewards={[]}
     />,

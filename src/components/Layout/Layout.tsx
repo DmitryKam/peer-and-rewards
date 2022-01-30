@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 
-import { CircularProgress } from '@mui/material';
+import { LinearProgress } from '@mui/material';
 import { useSelector } from 'react-redux';
 
 import { useFirebase } from '../../firebase/firebase';
@@ -25,7 +25,7 @@ export const Layout: React.FC = ({ children }) => {
   }
 
   if (checkAuth) {
-    return <CircularProgress />;
+    return <LinearProgress />;
   }
 
   return <div className={classes.root}>{children}</div>;

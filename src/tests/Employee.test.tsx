@@ -2,12 +2,12 @@ import React from 'react';
 
 import '@testing-library/jest-dom/extend-expect';
 
-import { Employee } from '../components/Employee/Employee';
+import { UserInfo } from '../components/UserInfo/UserInfo';
 import { renderWithRedux } from '../store/fakeStore/fakeStore';
 
-describe('Employee component', () => {
+describe('UserInfo component', () => {
   it('should show employee data', () => {
-    const { getByTestId } = renderWithRedux(<Employee />);
+    const { getByTestId } = renderWithRedux(<UserInfo />);
     const myEmployeeEl = getByTestId('myReward');
     const employeeNameEl = getByTestId('employeeName');
     const giveEl = getByTestId('give');

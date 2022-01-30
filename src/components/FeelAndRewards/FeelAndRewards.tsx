@@ -16,11 +16,11 @@ export const FeelAndRewards: React.FC<FeelAndRewardsPropsType> = React.memo(
   ({
     open,
     value,
-    state,
+    rewardsData,
     addRewardToEmployee,
     myRewards,
     autocompleteData,
-    currentEmployee,
+    user,
     handleOpen,
     handleClose,
     handleChange,
@@ -30,14 +30,9 @@ export const FeelAndRewards: React.FC<FeelAndRewardsPropsType> = React.memo(
     return (
       <div className={classes.root}>
         <div className={classes.iconContainer}>
-          <div className={classes.iconPosition}>
+          <div className={classes.iconPosition} onClick={handleOpen}>
             <Fab size={'large'} style={fabStyle}>
-              <AddIcon
-                data-testid={'modalIcon'}
-                color={'inherit'}
-                fontSize={'large'}
-                onClick={handleOpen}
-              />
+              <AddIcon data-testid={'modalIcon'} color={'inherit'} fontSize={'large'} />
             </Fab>
           </div>
         </div>
@@ -48,8 +43,8 @@ export const FeelAndRewards: React.FC<FeelAndRewardsPropsType> = React.memo(
         <hr />
         <div className={classes.itemContainer}>
           <TabPanel value={value} index={0}>
-            {state.rewardsData.map((data, index) => {
-              return <FeedItem key={data.from + index} employees={state.employees} {...data} />;
+            {rewardsData.map((data, index) => {
+              return <FeedItem key={data.from + index} user={user} {...data} />;
             })}
           </TabPanel>
           <TabPanel value={value} index={1}>
@@ -62,7 +57,7 @@ export const FeelAndRewards: React.FC<FeelAndRewardsPropsType> = React.memo(
                     to={data.to}
                     why={data.why}
                     date={data.date}
-                    employees={state.employees}
+                    user={user}
                   />
                 );
               })
@@ -75,7 +70,7 @@ export const FeelAndRewards: React.FC<FeelAndRewardsPropsType> = React.memo(
           data-testid={'modalOpen'}
           open={open}
           handleClose={handleClose}
-          amount={currentEmployee.myReward}
+          amount={user.myRewards}
           addRewardToEmployee={addRewardToEmployee}
           autocompleteData={autocompleteData}
         />

@@ -8,7 +8,7 @@ import {
   signInWithPopup,
   signOut as firebaseSignOut,
 } from 'firebase/auth';
-import { getFirestore } from 'firebase/firestore';
+import { doc, getDoc, getFirestore, setDoc } from 'firebase/firestore';
 import { useDispatch, useSelector } from 'react-redux';
 
 import {
@@ -32,7 +32,7 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+export const db = getFirestore(app);
 const auth = getAuth();
 const provider = new GoogleAuthProvider();
 provider.setCustomParameters({ prompt: 'select_account' });
@@ -51,8 +51,15 @@ export const useFirebase = () => {
   const signIn = async () => {
     try {
       const result = await signInWithPopup(auth, provider);
-      const { displayName, email, photoURL } = result.user;
-      dispatch(setUser(displayName || '', email || '', photoURL || ''));
+      const { displayName, email, photoURL, uid } = result.user;
+      const userSnap = await getDoc(doc(db, 'user', uid));
+      if (userSnap.exists()) {
+        const { give, myRewards } = userSnap.data();
+        dispatch(setUser(displayName || '', email || '', photoURL || '', uid, give, myRewards));
+      } else {
+        await setDoc(doc(db, 'user', uid), { give: 0, myRewards: 0 });
+        dispatch(setUser(displayName || '', email || '', photoURL || '', uid, 0, 0));
+      }
       dispatch(logIn());
       dispatch(userAuthenticated());
     } catch (err) {
@@ -74,10 +81,17 @@ export const useFirebase = () => {
 
   const isAuth = () => {
     try {
-      onAuthStateChanged(auth, (user) => {
+      onAuthStateChanged(auth, async (user) => {
         if (user) {
-          const { displayName, email, photoURL } = user;
-          dispatch(setUser(displayName || '', email || '', photoURL || ''));
+          const { displayName, email, photoURL, uid } = user;
+          const userSnap = await getDoc(doc(db, 'user', uid));
+          if (userSnap.exists()) {
+            const { give, myRewards } = userSnap.data();
+            dispatch(setUser(displayName || '', email || '', photoURL || '', uid, give, myRewards));
+          } else {
+            await setDoc(doc(db, 'user', uid), { give: 0, myRewards: 0 });
+            dispatch(setUser(displayName || '', email || '', photoURL || '', uid, 0, 0));
+          }
           dispatch(logIn());
         }
         dispatch(userAuthenticated());

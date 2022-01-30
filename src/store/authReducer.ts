@@ -1,9 +1,9 @@
 import { authInitialState } from './state';
-import { AuthActionType, AuthActionTypes, AuthInitialStateType } from './types';
+import { ActionsTypes, AuthActionType, AuthInitialStateType } from './types';
 
 export const authReducer = (
   state: AuthInitialStateType = authInitialState,
-  action: AuthActionTypes,
+  action: ActionsTypes,
 ): AuthInitialStateType => {
   switch (action.type) {
     case AuthActionType.LOGIN: {
@@ -25,11 +25,7 @@ export const authReducer = (
       return {
         ...state,
         user: {
-          email: action.payload.email,
-          name: action.payload.name,
-          imageUrl: action.payload.imageUrl,
-          myRewards: 250,
-          give: 0,
+          ...action.payload,
         },
       };
     }
