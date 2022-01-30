@@ -1,4 +1,5 @@
 import { createTheme } from '@mui/material/styles';
+import { StyledEngineProvider } from '@mui/material/styles';
 import { ThemeProvider as MuiThemeProvider } from '@mui/system';
 
 import { breakpoints } from './breakpoints';
@@ -179,5 +180,9 @@ const theme = createTheme(
   commonSettings,
 );
 export const ThemeProvider = ({ children }: { children: JSX.Element }) => {
-  return <MuiThemeProvider theme={theme}>{children}</MuiThemeProvider>;
+  return (
+    <StyledEngineProvider injectFirst>
+      <MuiThemeProvider theme={theme}>{children}</MuiThemeProvider>
+    </StyledEngineProvider>
+  );
 };
