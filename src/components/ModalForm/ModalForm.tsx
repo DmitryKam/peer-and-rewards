@@ -8,13 +8,13 @@ import {
   InputAdornment,
   Modal,
   OutlinedInput,
-  TextField,
 } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
 import { Button } from '../../common/button/Button';
+import { TextField } from '../../common/textField/TextField';
 import { boxStyle } from '../../styles/styles';
 import { ErrorItem } from './ErrorItem/ErrorItem';
 import { useStyles } from './ModalForm.styles';
@@ -28,10 +28,22 @@ const validationSchema = (validationString: string[]) => {
       .min(1, 'Minimum amount of currency 1 $')
       .required('Enter amount'),
     why: Yup.string()
-      .optional()
+      .required()
       .min(2, 'The minimum number of characters is 3!')
       .required('Write text'),
   });
+};
+
+const initialFormValues = {
+  toEmployee: '',
+  amount: null,
+  why: '',
+};
+
+const textFieldNames = {
+  toEmployee: 'toEmployee',
+  amount: 'amount',
+  why: 'why',
 };
 
 export const ModalForm: React.FC<ModalFormPropsType> = React.memo(
@@ -56,12 +68,37 @@ export const ModalForm: React.FC<ModalFormPropsType> = React.memo(
       },
     });
 
+    const closeModal = () => {
+      handleClose();
+      formik.resetForm();
+    };
+
+    const getErrorMessage = (fieldId: keyof typeof initialFormValues) => {
+      if (Boolean(formik.touched[fieldId]) && Boolean(formik.errors[fieldId])) {
+        const error = formik.errors[fieldId];
+
+        if (Array.isArray(error)) {
+          return error.join(', ');
+        }
+        const fieldName = textFieldNames[fieldId];
+        const [fieldError = '', errorMessage = ''] = String(formik.errors[fieldId]).split(fieldId);
+
+        if (!errorMessage) {
+          return fieldError as string;
+        }
+
+        return `${fieldName} ${errorMessage}` as string;
+      }
+
+      return '';
+    };
+
     return (
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
         open={open}
-        onClose={handleClose}
+        onClose={closeModal}
         closeAfterTransition
         BackdropComponent={Backdrop}
         BackdropProps={{
@@ -89,7 +126,7 @@ export const ModalForm: React.FC<ModalFormPropsType> = React.memo(
                     type="text"
                     color={'secondary'}
                     fullWidth={true}
-                    error={!!formik.errors.toEmployee}
+                    error={Boolean(getErrorMessage('toEmployee'))}
                     {...formik.getFieldProps('toEmployee')}
                   />
                 )}
@@ -110,7 +147,7 @@ export const ModalForm: React.FC<ModalFormPropsType> = React.memo(
                 inputProps={{
                   'data-testid': 'amount',
                 }}
-                error={!!formik.errors.amount}
+                error={Boolean(getErrorMessage('amount'))}
                 {...formik.getFieldProps('amount')}
               />
               {formik.touched.amount && formik.errors.amount && (
@@ -127,7 +164,7 @@ export const ModalForm: React.FC<ModalFormPropsType> = React.memo(
                 color={'secondary'}
                 fullWidth={true}
                 inputProps={{ 'data-testid': 'why' }}
-                error={!!formik.errors.why}
+                error={Boolean(getErrorMessage('why'))}
                 {...formik.getFieldProps('why')}
               />
               {formik.touched.why && formik.errors.why && (
