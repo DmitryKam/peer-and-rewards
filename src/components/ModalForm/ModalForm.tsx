@@ -14,7 +14,7 @@ import Typography from '@mui/material/Typography';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
-import { PrimaryButton } from '../../common/Buttons/PrimaryButton';
+import { Button } from '../../common/button/Button';
 import { boxStyle } from '../../styles/styles';
 import { ErrorItem } from './ErrorItem/ErrorItem';
 import { useStyles } from './ModalForm.styles';
@@ -23,8 +23,14 @@ import { ModalFormPropsType } from './types';
 const validationSchema = (validationString: string[]) => {
   return Yup.object().shape({
     toEmployee: Yup.string().required('Enter name').oneOf(validationString),
-    amount: Yup.number().min(1, 'Minimum amount of currency 1 $').required('Enter amount'),
-    why: Yup.string().min(2, 'The minimum number of characters is 3!').required('Write text'),
+    amount: Yup.number()
+      .required()
+      .min(1, 'Minimum amount of currency 1 $')
+      .required('Enter amount'),
+    why: Yup.string()
+      .optional()
+      .min(2, 'The minimum number of characters is 3!')
+      .required('Write text'),
   });
 };
 
@@ -37,6 +43,7 @@ export const ModalForm: React.FC<ModalFormPropsType> = React.memo(
         amount: '',
         why: '',
       },
+      validationSchema: validationSchema(autocompleteData),
       onSubmit: (values) => {
         addRewardToEmployee(values.toEmployee, +values.amount, values.why);
         if (amount < +values.amount) {
@@ -47,8 +54,8 @@ export const ModalForm: React.FC<ModalFormPropsType> = React.memo(
         values.why = '';
         handleClose();
       },
-      validationSchema: validationSchema(autocompleteData),
     });
+
     return (
       <Modal
         aria-labelledby="transition-modal-title"
@@ -79,13 +86,11 @@ export const ModalForm: React.FC<ModalFormPropsType> = React.memo(
                     {...params}
                     key={new Date().getDate()}
                     id="toEmployee"
-                    name="toEmployee"
                     type="text"
                     color={'secondary'}
-                    onChange={formik.handleChange}
-                    value={formik.values.toEmployee}
                     fullWidth={true}
                     error={!!formik.errors.toEmployee}
+                    {...formik.getFieldProps('toEmployee')}
                   />
                 )}
                 options={autocompleteData}
@@ -98,17 +103,15 @@ export const ModalForm: React.FC<ModalFormPropsType> = React.memo(
               </Typography>
               <OutlinedInput
                 id="amount"
-                name="amount"
                 type="number"
                 color={'secondary'}
-                onChange={formik.handleChange}
-                value={formik.values.amount}
                 fullWidth={true}
                 startAdornment={<InputAdornment position="start">$</InputAdornment>}
                 inputProps={{
                   'data-testid': 'amount',
                 }}
                 error={!!formik.errors.amount}
+                {...formik.getFieldProps('amount')}
               />
               {formik.touched.amount && formik.errors.amount && (
                 <ErrorItem>{formik.errors.amount}</ErrorItem>
@@ -118,22 +121,20 @@ export const ModalForm: React.FC<ModalFormPropsType> = React.memo(
               </Typography>
               <TextField
                 id="why"
-                name="why"
                 multiline
-                onChange={formik.handleChange}
-                value={formik.values.why}
                 placeholder={'Why?'}
                 rows={4}
                 color={'secondary'}
                 fullWidth={true}
                 inputProps={{ 'data-testid': 'why' }}
                 error={!!formik.errors.why}
+                {...formik.getFieldProps('why')}
               />
               {formik.touched.why && formik.errors.why && (
                 <ErrorItem>{formik.errors.why}</ErrorItem>
               )}
               <div className={classes.buttonContainer}>
-                <PrimaryButton type={'submit'}>Reward</PrimaryButton>
+                <Button type={'submit'}>Reward</Button>
               </div>
             </form>
           </Box>

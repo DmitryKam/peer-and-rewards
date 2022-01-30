@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { SyntheticEvent } from 'react';
 
 import Snackbar from '@mui/material/Snackbar';
 import { useSelector } from 'react-redux';
@@ -8,7 +8,7 @@ import { alertWidth } from '../../styles/styles';
 import { Alert } from './Alert/Alert';
 
 type HandleClosePropsType = {
-  handleClose: (event?: React.SyntheticEvent, reason?: string) => void;
+  handleClose: (event: SyntheticEvent<Element, Event>, reason?: string) => void;
 };
 
 export const ErrorSnackBar: React.FC<HandleClosePropsType> = ({ handleClose }) => {
@@ -19,7 +19,7 @@ export const ErrorSnackBar: React.FC<HandleClosePropsType> = ({ handleClose }) =
       data-testid={'snack-bar'}
       open={!!errors}
       autoHideDuration={6000}
-      onClose={handleClose}
+      // onClose={handleClose}
       anchorOrigin={{ horizontal: 'center', vertical: 'bottom' }}
     >
       <Alert onClose={handleClose} severity="warning" sx={alertWidth}>

@@ -9,10 +9,10 @@ import { Login } from '../Login/Login';
 import { useStyles } from './Layout.styles';
 
 export const Layout: React.FC = ({ children }) => {
+  const { isAuth: isUserSignedIn } = useFirebase();
   const isAuth = useSelector((state: AppRootStateType) => state.auth.auth.isAuth);
   const checkAuth = useSelector((state: AppRootStateType) => state.auth.auth.checkAuth);
   const classes = useStyles();
-  const { isAuth: isUserSignedIn } = useFirebase();
 
   useEffect(() => {
     if (checkAuth) {

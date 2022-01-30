@@ -11,8 +11,8 @@ export const Button = ({ className = '', children = '', onClick, ...props }: But
       variant="contained"
       color="primary"
       className={clsx({
+        [classes.default]: true,
         [className]: true,
-        [classes?.default]: true,
       })}
       onClick={onClick}
       {...props}

@@ -1,6 +1,7 @@
+import { Theme } from '@mui/material/styles';
 import { makeStyles } from '@mui/styles';
 
-export const useStyles = makeStyles((theme) => ({
+export const useStyles = makeStyles((theme: Theme) => ({
   appBarContainer: { display: 'flex', alignItems: 'center' },
   appBarText: {
     color: '#000a34',
@@ -11,7 +12,7 @@ export const useStyles = makeStyles((theme) => ({
     letterSpacing: 0.3,
     fontFamily: 'Circular Std,sans-serif',
     marginLeft: 20,
-    [theme.breakpoints.down('mobile')]: {
+    [theme.breakpoints.down('sm')]: {
       fontSize: 12,
     },
   },

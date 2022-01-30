@@ -1,6 +1,6 @@
 import { makeStyles } from '@mui/styles';
 
-export const useStyles = makeStyles({
+export const useStyles = makeStyles(() => ({
   root: {
     height: '100vh',
     display: 'flex',
@@ -22,4 +22,4 @@ export const useStyles = makeStyles({
     textAlign: 'center',
   },
   buttonContainer: { alignSelf: 'center' },
-});
+}));

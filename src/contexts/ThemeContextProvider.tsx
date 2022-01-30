@@ -1,39 +1,59 @@
-import { createContext, useState, useEffect, useContext, ChangeEvent } from 'react';
+import { createTheme, ThemeProvider as MuiThemeProvider } from '@mui/material';
 
-import { ThemeProvider as MuiThemeProvider, StyledEngineProvider } from '@mui/material';
-
-import { getThemeByName } from '../themesConfig';
-
-const initialTheme = localStorage?.getItem('theme') || 'dark';
-const ThemeContext = createContext({
-  isDarkMode: initialTheme === 'dark',
-  toggleTheme: (event: ChangeEvent<HTMLInputElement>) => {},
-});
+import { breakpoints } from './breakpoints';
+import { colors } from './colors';
 
 export const ThemeProvider = ({ children }: { children: JSX.Element }) => {
-  const [themeType, setThemeType] = useState(initialTheme);
-  const isDarkMode = themeType === 'dark';
-  const theme = getThemeByName(themeType);
+  const theme = createTheme({
+    breakpoints,
+    palette: {
+      primary: {
+        light: colors.white,
+        dark: colors.darkGray,
+        main: colors.primaryRed,
+      },
+      text: {
+        primary: colors.black,
+      },
+    },
+    components: {
+      MuiInputBase: {
+        styleOverrides: {
+          root: {
+            '&.Mui-disabled': {
+              background: colors.black,
+            },
+            '&.MuiOutlinedInput-root.Mui-focused > fieldset': {
+              borderColor: colors.whiteSmoke,
+            },
+          },
+        },
+      },
 
-  const toggleTheme = (event: ChangeEvent<HTMLInputElement>) => {
-    event.stopPropagation();
-    const nextThemeType = isDarkMode ? 'light' : 'dark';
-    setThemeType(nextThemeType);
-  };
+      MuiInputAdornment: {
+        styleOverrides: {
+          root: {
+            color: colors.shuttleGray,
+          },
+        },
+      },
+    },
+    // components: {
+    //   MuiButton: {
+    //     styleOverrides: {
+    //       outlinedSecondary: {
+    //         background: colors.paleBlack,
+    //         border: `1px solid ${colors.shuttleGray}`,
+    //         color: colors.mistGray,
+    //         '&:hover': {
+    //           background: colors.lightBlack,
+    //           border: `1px solid ${colors.shuttleGray}`,
+    //         },
+    //       },
+    //     },
+    //   },
+    // },
+  });
 
-  useEffect(() => {
-    localStorage.setItem('theme', themeType);
-  }, [themeType]);
-
-  const value = { isDarkMode, toggleTheme };
-
-  return (
-    <ThemeContext.Provider value={value}>
-      <StyledEngineProvider injectFirst>
-        <MuiThemeProvider theme={theme}>{children}</MuiThemeProvider>
-      </StyledEngineProvider>
-    </ThemeContext.Provider>
-  );
+  return <MuiThemeProvider theme={theme}>{children}</MuiThemeProvider>;
 };
-
-export const useTheme = () => useContext(ThemeContext);

@@ -1,5 +1,5 @@
 export const colors = {
-  primaryRed: '#ffc126',
+  primaryRed: '#E80050',
 
   // monochrome scale
   white: '#ffffff', // lightness 100%

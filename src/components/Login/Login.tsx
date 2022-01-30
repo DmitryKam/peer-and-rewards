@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Paper } from '@mui/material';
 
-import { PrimaryButton } from '../../common/Buttons/PrimaryButton';
+import { Button } from '../../common/button/Button';
 import { useFirebase } from '../../firebase/firebase';
 import { useStyles } from './Login.styles';
 
@@ -18,7 +18,7 @@ export const Login: React.FC = () => {
           login.
         </div>
         <div className={classes.buttonContainer}>
-          <PrimaryButton onClick={signIn}>Sign n with firebase</PrimaryButton>
+          <Button onClick={signIn}>Sign n with firebase</Button>
         </div>
       </Paper>
     </div>

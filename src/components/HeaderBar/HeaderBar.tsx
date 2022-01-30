@@ -4,7 +4,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { AppBar, Box, IconButton, Menu, MenuItem, Toolbar } from '@mui/material';
 import { useSelector } from 'react-redux';
 
-import { PrimaryButton } from '../../common/Buttons/PrimaryButton';
+import { Button } from '../../common/button/Button';
 import { useFirebase } from '../../firebase/firebase';
 import { AppRootStateType } from '../../store/store';
 import {
@@ -62,7 +62,7 @@ export const HeaderBar: React.FC = () => {
             {!auth && <MenuItem onClick={() => {}}>Empty</MenuItem>}
           </Menu>
           <div className={classes.appBarText}>Peer and Rewards</div>
-          {auth ? <PrimaryButton onClick={signOut}>Sign Out</PrimaryButton> : null}
+          {auth ? <Button onClick={signOut}>Sign Out</Button> : null}
         </Toolbar>
       </AppBar>
     </Box>
