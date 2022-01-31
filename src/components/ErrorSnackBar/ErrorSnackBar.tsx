@@ -1,28 +1,31 @@
 import React, { SyntheticEvent } from 'react';
 
 import Snackbar from '@mui/material/Snackbar';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
+import { resetError } from '../../store/actions';
 import { AppRootStateType } from '../../store/store';
-import { alertWidth } from '../../styles/styles';
 import { Alert } from './Alert/Alert';
 
-type HandleClosePropsType = {
-  handleClose: (event: SyntheticEvent<Element, Event>, reason?: string) => void;
-};
-
-export const ErrorSnackBar: React.FC<HandleClosePropsType> = ({ handleClose }) => {
+export const ErrorSnackBar = () => {
   const errors = useSelector((state: AppRootStateType) => state.app.errors);
+  const dispatch = useDispatch();
+
+  const handleClose = (event?: SyntheticEvent, reason?: string) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    dispatch(resetError());
+  };
 
   return (
     <Snackbar
       data-testid={'snack-bar'}
       open={!!errors}
       autoHideDuration={6000}
-      // onClose={handleClose}
       anchorOrigin={{ horizontal: 'center', vertical: 'bottom' }}
     >
-      <Alert onClose={handleClose} severity="warning" sx={alertWidth}>
+      <Alert onClose={handleClose} severity="warning">
         {errors}
       </Alert>
     </Snackbar>

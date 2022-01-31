@@ -3,5 +3,4 @@ export type ModalFormPropsType = {
   handleClose: () => void;
   addRewardToEmployee: (to: string, amount: number, why: string) => void;
   autocompleteData: string[];
-  amount: number;
 };

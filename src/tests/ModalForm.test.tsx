@@ -4,14 +4,14 @@ import { render, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import userEvent from '@testing-library/user-event';
 
-import { ModalForm } from '../components/ModalForm/ModalForm';
+import { RewardsDialog } from '../components/ModalForm/RewardsDialog';
 
 test('Modal form submit without error', async () => {
   const addRewardToEmployee = jest.fn();
   const handleClose = jest.fn();
   const autocompleteData = ['James William', 'John Chen'];
   const { getByTestId, getByRole, getByText } = render(
-    <ModalForm
+    <RewardsDialog
       addRewardToEmployee={addRewardToEmployee}
       autocompleteData={autocompleteData}
       handleClose={handleClose}
@@ -42,7 +42,7 @@ test('Modal form  has error', async () => {
   const handleClose = jest.fn();
   const autocompleteData = ['James William', 'John Chen'];
   const { getByTestId, getByRole, getByText } = render(
-    <ModalForm
+    <RewardsDialog
       addRewardToEmployee={addRewardToEmployee}
       autocompleteData={autocompleteData}
       handleClose={handleClose}

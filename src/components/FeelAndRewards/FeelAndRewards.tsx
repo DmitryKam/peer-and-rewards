@@ -1,15 +1,15 @@
 import React from 'react';
 
-import AddIcon from '@mui/icons-material/Add';
-import Fab from '@mui/material/Fab';
+import { Grid, Typography } from '@mui/material';
 
 import { a11yProps } from '../../helpers/helpers';
-import { fabStyle } from '../../styles/styles';
-import { FeedItem } from '../FeedItem/FeedItem';
-import { ModalForm } from '../ModalForm/ModalForm';
+import { RewardsDialog } from '../ModalForm/RewardsDialog';
 import { TabPanel } from '../TabPanel/TabPanel';
+import { AddRewardsIcon } from './addRewardsIcon/AddRewardsIcon';
+import { FeedItem } from './FeedItem/FeedItem';
 import { useStyles } from './FeelAndRewards.styles';
-import { StyledTab, StyledTabs } from './Tabs/StyledTabs/StyledTabs';
+import { Tab } from './Tabs/StyledTabs/Tab';
+import { Tabs } from './Tabs/StyledTabs/Tabs';
 import { FeelAndRewardsPropsType } from './types';
 
 export const FeelAndRewards: React.FC<FeelAndRewardsPropsType> = React.memo(
@@ -29,19 +29,13 @@ export const FeelAndRewards: React.FC<FeelAndRewardsPropsType> = React.memo(
 
     return (
       <div className={classes.root}>
-        <div className={classes.iconContainer}>
-          <div className={classes.iconPosition} onClick={handleOpen}>
-            <Fab size={'large'} style={fabStyle}>
-              <AddIcon data-testid={'modalIcon'} color={'inherit'} fontSize={'large'} />
-            </Fab>
-          </div>
-        </div>
-        <StyledTabs value={value} onChange={handleChange} aria-label="feed">
-          <StyledTab label="Feed" {...a11yProps(0)} />
-          <StyledTab label="My Rewards" {...a11yProps(1)} />
-        </StyledTabs>
+        <AddRewardsIcon handleOpen={handleOpen} />
+        <Tabs value={value} onChange={handleChange} aria-label="feed">
+          <Tab label="Feed" {...a11yProps(0)} />
+          <Tab label="My Rewards" {...a11yProps(1)} />
+        </Tabs>
         <hr />
-        <div className={classes.itemContainer}>
+        <Grid className={classes.itemContainer}>
           <TabPanel value={value} index={0}>
             {rewardsData.map((data, index) => {
               return <FeedItem key={data.from + index} user={user} {...data} />;
@@ -50,27 +44,19 @@ export const FeelAndRewards: React.FC<FeelAndRewardsPropsType> = React.memo(
           <TabPanel value={value} index={1}>
             {myRewards.length ? (
               myRewards.map((data, index) => {
-                return (
-                  <FeedItem
-                    key={data.from + index}
-                    from={data.from}
-                    to={data.to}
-                    why={data.why}
-                    date={data.date}
-                    user={user}
-                  />
-                );
+                return <FeedItem key={data.from + index} user={user} {...data} />;
               })
             ) : (
-              <div className={classes.noMyRewards}>No rewards sent</div>
+              <Typography variant={'h5'} className={classes.noMyRewards}>
+                No rewards sent
+              </Typography>
             )}
           </TabPanel>
-        </div>
-        <ModalForm
-          data-testid={'modalOpen'}
+        </Grid>
+
+        <RewardsDialog
           open={open}
           handleClose={handleClose}
-          amount={user.myRewards}
           addRewardToEmployee={addRewardToEmployee}
           autocompleteData={autocompleteData}
         />

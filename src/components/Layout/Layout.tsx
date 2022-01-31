@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 
-import { LinearProgress } from '@mui/material';
+import { Grid, LinearProgress } from '@mui/material';
 import { useSelector } from 'react-redux';
 
 import { useFirebase } from '../../firebase/firebase';
@@ -28,5 +28,5 @@ export const Layout: React.FC = ({ children }) => {
     return <LinearProgress />;
   }
 
-  return <div className={classes.root}>{children}</div>;
+  return <Grid className={classes.root}>{children}</Grid>;
 };

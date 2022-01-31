@@ -4,79 +4,11 @@ import { ThemeProvider as MuiThemeProvider } from '@mui/system';
 
 import { breakpoints } from './breakpoints';
 import { colors } from './colors';
-
-export const commonSettings = {
-  shape: {
-    borderRadius: 4,
-  },
-  components: {
-    MuiCssBaseline: {
-      styleOverrides: {
-        body: {
-          margin: 0,
-          fontFamily: 'monospace', // to show where Typography is not used
-        },
-
-        'div,main': {
-          scrollbarWidth: 'thin',
-        },
-        'div::-webkit-scrollbar,main::-webkit-scrollbar': {
-          width: 4,
-          height: 4,
-          borderRadius: '0 0 2px 2px',
-        },
-        'div::-webkit-scrollbar-thumb,main::-webkit-scrollbar-thumb': {
-          borderRadius: 5,
-        },
-
-        'input[type="number"]::-webkit-inner-spin-button': {
-          WebkitAppearance: 'none',
-        },
-        'input[type="number"]': {
-          appearance: 'textfield',
-        },
-
-        'input[type="password"]::-ms-reveal': {
-          display: 'none',
-        },
-      },
-    },
-    MuiInputBase: {
-      styleOverrides: {
-        root: {
-          height: '40px',
-        },
-        input: {
-          padding: '13px 16px',
-        },
-      },
-    },
-    MuiInputLabel: {
-      styleOverrides: {
-        root: {
-          marginTop: '-7px',
-          paddingLeft: '2px',
-        },
-        outlined: {},
-        shrink: {
-          marginTop: '-2px',
-          paddingLeft: '2px',
-          transform: 'translate(14px, -6px) scale(0.85) !important',
-        },
-      },
-    },
-    MuiOutlinedInput: {
-      styleOverrides: {
-        input: {
-          padding: '13px 16px',
-        },
-      },
-    },
-  },
-};
+import { typography } from './typography';
 
 const theme = createTheme({
   breakpoints,
+  typography,
   palette: {
     mode: 'light',
     primary: {
@@ -84,8 +16,17 @@ const theme = createTheme({
       dark: colors.darkGray,
       main: colors.primaryRed,
     },
+    secondary: {
+      light: colors.white,
+      dark: colors.darkGray,
+      main: colors.platinumGray,
+    },
     text: {
       primary: colors.black,
+    },
+    background: {
+      default: colors.platinumGray,
+      paper: colors.whiteSmoke,
     },
   },
   components: {
@@ -125,6 +66,16 @@ const theme = createTheme({
       },
     },
 
+    MuiFormLabel: {
+      styleOverrides: {
+        root: {
+          '&.MuiInputLabel-root.Mui-focused': {
+            color: colors.fallbackBlack,
+          },
+        },
+      },
+    },
+
     MuiInputBase: {
       styleOverrides: {
         root: {
@@ -147,6 +98,7 @@ const theme = createTheme({
     },
   },
 });
+
 export const ThemeProvider = ({ children }: { children: JSX.Element }) => {
   return (
     <StyledEngineProvider injectFirst>

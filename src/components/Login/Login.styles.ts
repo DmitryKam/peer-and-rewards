@@ -1,6 +1,7 @@
+import { Theme } from '@mui/material/styles';
 import { makeStyles } from '@mui/styles';
 
-export const useStyles = makeStyles(() => ({
+export const useStyles = makeStyles((theme: Theme) => ({
   root: {
     height: '100vh',
     display: 'flex',
@@ -9,11 +10,11 @@ export const useStyles = makeStyles(() => ({
   },
   paper: {
     display: 'flex',
-    height: 400,
-    maxWidth: 500,
+    height: '400px',
+    maxWidth: '500px',
     flexDirection: 'column',
     justifyContent: 'center',
-    padding: '50px 50px 50px 50px',
+    padding: theme.spacing(7),
   },
   text: {
     marginBottom: 40,

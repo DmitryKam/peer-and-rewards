@@ -5,6 +5,7 @@ export type StyledTabsProps = {
   value: number;
   onChange: (event: React.SyntheticEvent, newValue: number) => void;
 };
+
 export type StyledTabProps = {
   label: string;
 };

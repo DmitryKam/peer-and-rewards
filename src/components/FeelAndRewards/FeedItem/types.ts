@@ -1,4 +1,4 @@
-import { UserType } from '../../store/types';
+import { UserType } from '../../../store/types';
 
 export type DataPropsType = {
   from: string;
