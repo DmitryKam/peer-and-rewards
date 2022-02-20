@@ -1,16 +1,23 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { Avatar, Grid, Typography } from '@mui/material';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { AppRootStateType } from '../../store/store';
+import { updateAmount } from '../../store/thunks';
 import { Login } from '../Login/Login';
 import { useStyles } from './UserInfo.styles';
 
 export const UserInfo: React.FC = () => {
   const classes = useStyles();
   const user = useSelector((state: AppRootStateType) => state.auth.user);
+  const rewards = useSelector((state: AppRootStateType) => state.app.rewardsData);
+  const dispatch = useDispatch();
 
+  useEffect(() => {
+    console.log(' rewards.length', rewards.length);
+    dispatch(updateAmount());
+  }, [dispatch, rewards.length]);
   if (!user) {
     return <Login />;
   }

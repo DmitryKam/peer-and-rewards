@@ -82,6 +82,7 @@ export const RewardsDialog = React.memo(
               onChange={(event, value) => {
                 setFieldValue('toEmployee', value);
               }}
+              isOptionEqualToValue={(option, value) => option === value}
               renderInput={(params) => (
                 <TextField
                   {...params}

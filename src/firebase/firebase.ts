@@ -8,7 +8,16 @@ import {
   signInWithPopup,
   signOut as firebaseSignOut,
 } from 'firebase/auth';
-import { doc, getDoc, getFirestore, setDoc } from 'firebase/firestore';
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  getFirestore,
+  query,
+  setDoc,
+  where,
+} from 'firebase/firestore';
 import { useDispatch, useSelector } from 'react-redux';
 
 import {
@@ -20,6 +29,8 @@ import {
   userAuthenticated,
 } from '../store/actions';
 import { AppRootStateType } from '../store/store';
+import { RewardsDataType } from '../store/types';
+import { getUserRewards } from '../utils/getUserRewards';
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -84,16 +95,17 @@ export const useFirebase = () => {
       onAuthStateChanged(auth, async (user) => {
         if (user) {
           const { displayName, email, photoURL, uid } = user;
-          const userSnap = await getDoc(doc(db, 'user', uid));
-          if (userSnap.exists()) {
-            const { give, myRewards } = userSnap.data();
-            dispatch(setUser(displayName || '', email || '', photoURL || '', uid, give, myRewards));
-          } else {
-            await setDoc(doc(db, 'user', uid), { give: 0, myRewards: 0 });
-            dispatch(setUser(displayName || '', email || '', photoURL || '', uid, 0, 0));
-          }
-          dispatch(logIn());
+          const { docs } = await getDocs(collection(db, 'rewards'));
+          const rewards = docs.map((reward) => {
+            return { ...reward.data(), id: reward.id } as RewardsDataType;
+          });
+          const { give, myReward } = getUserRewards(rewards, displayName);
+
+          await setDoc(doc(db, 'user', uid), { displayName, email, photoURL });
+          dispatch(setUser(displayName || '', email || '', photoURL || '', uid, give, myReward));
         }
+        dispatch(logIn());
+
         dispatch(userAuthenticated());
       });
     } catch (e) {
@@ -102,9 +114,23 @@ export const useFirebase = () => {
     }
   };
 
+  const fromUserIcon = async (fromUser: string) => {
+    const q = query(collection(db, 'user'), where('displayName', '==', fromUser));
+    const querySnapshot = await getDocs(q);
+    let imageUrl = '';
+    querySnapshot.forEach((fromUserData) => {
+      if (imageUrl) {
+        return;
+      }
+      imageUrl = fromUserData.data().photoURL || '';
+    });
+    return imageUrl;
+  };
+
   return {
     signIn,
     signOut,
     isAuth,
+    fromUserIcon,
   };
 };

@@ -26,6 +26,7 @@ export enum AuthActionType {
   DELETE_USER = 'DELETE_USER',
   UPDATE_USER = 'UPDATE_USER',
   USER_AUTHENTICATED = 'USER_AUTHENTICATED',
+  CLEAR_STORE = 'CLEAR_STORE',
 }
 
 export type RewardsDataType = {

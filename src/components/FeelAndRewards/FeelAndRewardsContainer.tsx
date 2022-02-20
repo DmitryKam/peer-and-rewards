@@ -14,7 +14,10 @@ export const FeelAndRewardsContainer = () => {
   const [open, setOpen] = useState<boolean>(false);
   const user = useSelector((state: AppRootStateType) => state.auth.user);
   const { rewardsData } = useSelector((state: AppRootStateType) => state.app);
-  const myRewards = rewardsData.filter((rewardItem) => rewardItem.from === user?.name);
+  const myRewards = useMemo(
+    () => rewardsData.filter((rewardItem) => rewardItem.from === user?.name),
+    [rewardsData, user?.name],
+  );
 
   useEffect(() => {
     dispatch(fetchRewards());
