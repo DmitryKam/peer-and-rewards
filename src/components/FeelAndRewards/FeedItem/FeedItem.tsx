@@ -39,9 +39,9 @@ export const FeedItem: React.FC<DataPropsType> = ({ from, to, why, date, user })
             {from} rewarded by {to}
           </Typography>
 
-          <Tooltip title={date.toString()}>
+          <Tooltip title={date.toString()} placement="bottom-start">
             <Typography variant={'body2'}>
-              <Moment className={classes.dateMoment} fromNow>
+              <Moment className={classes.dateMoment} toNow>
                 {date}
               </Moment>
             </Typography>
