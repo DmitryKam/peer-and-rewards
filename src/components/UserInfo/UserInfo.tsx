@@ -15,7 +15,6 @@ export const UserInfo: React.FC = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log(' rewards.length', rewards.length);
     dispatch(updateAmount());
   }, [dispatch, rewards.length]);
   if (!user) {
