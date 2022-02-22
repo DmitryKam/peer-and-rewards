@@ -13,4 +13,5 @@ export const useStyles = makeStyles((theme: Theme) => ({
   dateMoment: {
     cursor: 'pointer',
   },
+  avatar: { width: 56, height: 56 },
 }));

@@ -14,7 +14,7 @@ describe('auth reducer tests', () => {
     expect(endState.auth.isAuth).toBe(false);
   });
   it('user should be added', () => {
-    const action = setUser('Fake Name', 'email@email.com', 'url');
+    const action = setUser('Fake Name', 'email@email.com', 'url', '1', 0, 0);
     const endState = authReducer(authFakeState, action);
     expect(endState.user?.name).toBe('Fake Name');
   });

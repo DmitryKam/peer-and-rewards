@@ -4,7 +4,6 @@ import { Avatar, Grid, Tooltip, Typography } from '@mui/material';
 import Moment from 'react-moment';
 
 import { useFirebase } from '../../../firebase/firebase';
-import { avatarItemSize } from '../../../styles/styles';
 import { useStyles } from './FeelItem.styles';
 import { DataPropsType } from './types';
 
@@ -17,6 +16,7 @@ export const FeedItem: React.FC<DataPropsType> = ({ from, to, why, date, user })
     const fromUserImageUrl = await fromUserIcon(from);
     setFromUrl(fromUserImageUrl);
   }, [from, fromUserIcon]);
+
   const imgUrl = from === user.name ? user.imageUrl : fromUrl;
 
   useEffect(() => {
@@ -31,7 +31,7 @@ export const FeedItem: React.FC<DataPropsType> = ({ from, to, why, date, user })
       className={classes.root}
       wrap={'nowrap'}
     >
-      <Avatar alt={user.name} sx={avatarItemSize} src={imgUrl as string} />
+      <Avatar alt={user.name} src={imgUrl as string} classes={{ root: classes.avatar }} />
 
       <Grid item container direction={'column'} className={classes.itemsContainer}>
         <Grid item container direction={'column'} className={classes.userContainer}>

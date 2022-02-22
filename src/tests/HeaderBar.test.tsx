@@ -11,7 +11,9 @@ const stateWithLogIn: RootFakeStateType = {
     ...rootFakeState.auth,
     auth: {
       isAuth: true,
+      checkAuth: false,
     },
+    user: null,
   },
 };
 
@@ -22,9 +24,9 @@ test('HeaderBar renders', () => {
 });
 
 test('HeaderBar render with logIn', () => {
-  const { getByText, debug } = renderWithRedux(<HeaderBar />, stateWithLogIn);
+  const { getByText } = renderWithRedux(<HeaderBar />, stateWithLogIn);
   const text = getByText(/Peer and Rewards/i);
-  const buttonEl = getByText(/Logout/i);
+  const buttonEl = getByText(/sign out/i);
   expect(text).toHaveTextContent('Peer and Rewards');
-  expect(buttonEl).toHaveTextContent('Logout');
+  expect(buttonEl).toHaveTextContent('Sign Out');
 });

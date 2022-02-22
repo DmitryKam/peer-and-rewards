@@ -7,7 +7,6 @@ import { renderWithRedux } from '../store/fakeStore/fakeStore';
 
 describe('ErrorSnackBar component', () => {
   let testState: RootFakeStateType = {} as RootFakeStateType;
-  const handleClose = jest.fn();
   beforeEach(() => {
     testState = {
       ...rootFakeState,
@@ -15,7 +14,7 @@ describe('ErrorSnackBar component', () => {
     };
   });
   it('Error should show', () => {
-    const { getByText } = renderWithRedux(<ErrorSnackBar handleClose={handleClose} />, testState);
+    const { getByText } = renderWithRedux(<ErrorSnackBar />, testState);
     const text = getByText(/This is error/i);
     expect(text).toHaveTextContent('This is error');
   });

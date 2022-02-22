@@ -1,6 +1,8 @@
 import { Theme } from '@mui/material/styles';
 import { makeStyles } from '@mui/styles';
 
+import { colors } from '../../../themeConfig/colors';
+
 export const useStyles = makeStyles((theme: Theme) => ({
   container: {
     position: 'relative',
@@ -15,4 +17,5 @@ export const useStyles = makeStyles((theme: Theme) => ({
       top: -2,
     },
   },
+  icon: { backgroundColor: colors.white, border: `2px solid ${colors.primaryRed}` },
 }));

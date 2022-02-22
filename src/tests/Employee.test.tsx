@@ -7,12 +7,12 @@ import { renderWithRedux } from '../store/fakeStore/fakeStore';
 
 describe('UserInfo component', () => {
   it('should show employee data', () => {
-    const { getByTestId } = renderWithRedux(<UserInfo />);
-    const myEmployeeEl = getByTestId('myReward');
-    const employeeNameEl = getByTestId('employeeName');
-    const giveEl = getByTestId('give');
-    expect(myEmployeeEl.textContent).toBe('$250');
-    expect(employeeNameEl.textContent).toBe('Fake User');
+    const { getByText } = renderWithRedux(<UserInfo />);
+    const myEmployeeEl = getByText('Fake User');
+    const rewardsEl = getByText('$250');
+    const giveEl = getByText('$0');
+    expect(myEmployeeEl.textContent).toBe('Fake User');
+    expect(rewardsEl.textContent).toBe('$250');
     expect(giveEl.textContent).toBe('$0');
   });
 });
